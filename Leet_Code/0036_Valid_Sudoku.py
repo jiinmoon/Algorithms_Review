@@ -27,7 +27,7 @@ class Solution:
                 num = board[row][col]
                 if num != '.':
                     box = (row // 3) * 3 + (col // 3)
-                    if num in rows or num in cols or num in boxes:
+                    if num in rows[row] or num in cols[col] or num in boxes[box]:
                         return False
                     rows[row].add(num)
                     cols[col].add(num)
