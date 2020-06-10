@@ -34,6 +34,7 @@ class Solution:
             last = curr
             if curr.right:
                 last = findFaultyNodes(curr.right, last)
+            return last
 
         findFaultyNodes(root, TreeNode(float('-inf')))
         first, second = faultyNodes[0], faultyNodes[1]
