@@ -17,7 +17,7 @@ Solution:
 
 class Solution:
     def minimumTotal(self, triangle):
-        if not triangel:
+        if not triangle:
             return 0
         if len(triangle):
             for i in range(len(triangle)-2, -1, -1):
