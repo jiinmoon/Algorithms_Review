@@ -39,7 +39,7 @@ class Solution:
         dp[-1][-1] = True
 
         for i in range(m, -1, -1):
-            for j in range(n, -1, -1):
+            for j in range(n-1, -1, -1):
                 first_match = i < m and pattern[j] in {text[i], '.'}
                 if j + 1 < n and pattern[j+1] == '*':
                     dp[i][j] = dp[i][j+2] or first_match and dp[i+1][j]
