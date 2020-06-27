@@ -11,11 +11,11 @@ Question:
 class Solution:
     def isValid(self, s):
         if not s:
-            return False
+            return True
         bracketMap = {
             ')' : '(',
             '}' : '{',
-            ']' : '[]'
+            ']' : '['
         }
 
         for bracket in s:
