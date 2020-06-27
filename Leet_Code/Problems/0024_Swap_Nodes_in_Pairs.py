@@ -15,7 +15,7 @@ Solution:
 
 class Solution:
     def swapPairs(self, head):
-        if not head and not head.next:
+        if not head or not head.next:
             return head
         dummyHead = prev = ListNode(-1)
         dummyHead.next = head
