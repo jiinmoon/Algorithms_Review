@@ -23,12 +23,12 @@ class Solution:
         stack = []
         for i, char in enumerate(s):
             if char == '(':
-                stack.append(char)
+                stack.append(i)
             else:
                 if stack and s[stack[-1]] == '(':
                     stack.pop()
                 else:
-                    stack.append(char)
+                    stack.append(i)
 
         longest = 0
         if stack:
