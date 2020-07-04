@@ -21,7 +21,7 @@ class Solution:
         m = len(nums)
         if not nums or m < 3:
             return None
-        closest = 0
+        closest = float('-inf')
         nums.sort()
         for i in range(m-2):
             if i > 0 and nums[i] == nums[i-1]:
@@ -32,8 +32,7 @@ class Solution:
                 curr = (nums[i], nums[j], nums[k])
                 currDiff = abs(target - sum(curr))
                 prevDiff = abs(target - closest)
-                closest = closest if prevDiff < currDiff else
-                sum(curr)
+                closest = closest if prevDiff < currDiff else sum(curr)
                 if sum(curr) < target:
                     j += 1
                 else:
