@@ -27,7 +27,7 @@ class Solution:
             return []
         result = set()
         nums.sort()
-        for i in range(m):
+        for i in range(m-2):
             if i > 0 and nums[i-1] == nums[i]:
                 continue
             j = i+1
