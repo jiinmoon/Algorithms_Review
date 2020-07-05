@@ -22,7 +22,7 @@ class Solution:
                 if i > start and candidates[i] == candidates[i-1]:
                     continue
                 if candidates[i] <= pathSum:
-                    backtrack(start, path + [candidates[i]], pathSum -
+                    backtrack(i+1, path + [candidates[i]], pathSum -
                             candidates[i])
 
         backtrack(0, [], target)

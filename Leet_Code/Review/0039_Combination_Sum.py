@@ -29,7 +29,7 @@ class Solution:
                 return
             for i in range(start, m):
                 if candidate < pathSum:
-                    backtrack(candidates, path + [candidates[i]], pathSum
+                    backtrack(i ,path + [candidates[i]], pathSum
                             - candidates[i])
 
         backtrack(0, [], target)

@@ -28,7 +28,7 @@ class Solution:
                 result.append(path)
                 return
             for i in range(start, m):
-                if i > 0 and candidates[i-1] == candidates[i]:
+                if i > start and candidates[i-1] == candidates[i]:
                     continue
                 backtrack(i+1, path + [candidates[i]], pathSum - candidates[i])
         
