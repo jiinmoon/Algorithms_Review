@@ -40,7 +40,7 @@ class Solution:
                     backtrack(row+1, path)
                     downDiag.remove(row + col)
                     upDiag.remove(row - col)
-                    col.remove(col)
+                    cols.remove(col)
                     path[row][col] = '.'
 
         backtrack(0, board)
