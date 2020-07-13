@@ -15,6 +15,10 @@ Solution:
     account - since the number of times that the element should appear depends
     on the how many time it is present in the given array. 
 
+    Computing a powerset is a exponential operation as it grows rapidly. And
+    since we need to go through every subset as well, the time complexity
+    should be O(n * 2 ** n).
+
 """
 
 from collections import Counter
