@@ -59,6 +59,7 @@ func find_two_sum(nums []int, target int) []int {
         if j, ok := record[target - num]; ok && j != i {
             return []int{i, j}
         }
+    }
     return []int{}
 }
 ```
@@ -68,4 +69,4 @@ func find_two_sum(nums []int, target int) []int {
 
 ---
 
-LeetCode: [two-sum](https://leetcode.com/problems/two-sum/)
+LeetCode: [Two Sum](https://leetcode.com/problems/two-sum/)
