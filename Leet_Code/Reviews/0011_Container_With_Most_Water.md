@@ -19,6 +19,8 @@ its height.
 Codes:
 ------
 
+In Python3:
+
 ```python
 class Solution:
     def maxArea(self, heights):
@@ -32,6 +34,41 @@ class Solution:
                 hi -= 1
             maxThusFar = max(maxThusFar, currArea)
         return maxThusFar
+```
+
+In go:
+
+```go
+func Min(x int, y int) int {
+    if x < y {
+        return x
+    } else {
+        return y
+    }
+}
+
+func Max(x int, y int) int {
+    if x > y {
+        return x
+    } else {
+        return y
+    }
+}
+
+func maxArea(height []int) int {
+    lo, hi := 0, len(height)-1
+    maxThusFar := min(height[lo], height[hi]) * (hi - lo)
+    for ; lo < hi ; {
+        currArea := min(height[lo], height[hi]) * (hi - lo)
+        if height[lo] < height[hi] {
+            lo += 1
+        } else {
+            hi -= 1
+        }
+        maxThusFar = max(maxThusFar, currArea)
+    }
+    return maxThusFar
+}
 ```
 
 ---
