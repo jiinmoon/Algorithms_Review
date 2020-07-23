@@ -4,12 +4,23 @@
 Question:
 ---------
 
-    The question goes here.
+The question goes here.
+
+For example:
+
+    This would be a fine example.
 
 Solutions:
 ---------
 
-    The solutions will go here. Provide explanations.
+The solutions will go here. Provide explanations.
+
+```
+any pseudocodes will live here
+```
+
+Codes:
+------
 
 ```python
 class Solution:
@@ -20,4 +31,6 @@ class Solution:
 
 ---
 
-[Question-Title](https://leetcode.com/problems/xyz)
+**Source:**
+
+LeetCode: [Question-Title](https://leetcode.com/problems/Question-Title)
