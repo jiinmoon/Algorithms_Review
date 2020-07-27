@@ -11,7 +11,7 @@ For example:
     This would be a fine example.
 
 Solutions:
----------
+----------
 
 The solutions will go here. Provide explanations.
 
