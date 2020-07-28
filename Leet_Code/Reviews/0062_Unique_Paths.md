@@ -18,10 +18,6 @@ a maximum number of paths that robot has taken thus far. Then, this must be
 based on previous values DP[i-1][j] and DP[i][j-1] where the robot has came
 from. This would take O(n * m) to iterate on the grid.
 
-```
-any pseudocodes will live here
-```
-
 Codes:
 ------
 
