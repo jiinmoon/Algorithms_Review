@@ -21,8 +21,6 @@ Codes:
 
 Python:
 
-Python:
-
 ```python
 class Solution:
     def hasPathSum(self, root, target):
