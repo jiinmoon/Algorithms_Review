@@ -64,7 +64,8 @@ class Solution:
                     dp[i][j] = (i > 0 and dp[i-1][j])
                 elif curr == '*':
                     star_element = pattern[j-2]
-                    dp[i][j] = (i > 0 and dp[i-1][j]) and \
+                    dp[i][j] = dp[i][j-2] or \
+                        (i > 0 and dp[i-1][j]) and \
                         (star_element == text[i-1] or \
                          star_element == '.')
                 else:
