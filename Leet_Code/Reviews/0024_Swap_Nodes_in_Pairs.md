@@ -14,22 +14,23 @@ N/A.
 Codes:
 ------
 
-Python:
+Go:
 
-```python
-class Solution:
-    def swapPairs(self, head):
-        if not head or not head.next:
-            return head
-        dummyHead = prev = ListNode(None)
-        while head and head.next:
-            temp = head.next.next
-            prev.next = head.next
-            head.next.next = head
-            prev = head
-            head = temp
-        prev.next = head
-        return dummyHead.next
+```go
+func swapPairs(head *ListNode) *ListNode {
+    var (
+        dummyHead = &ListNode{}
+        prev = dummyHead
+    )
+    for head != nil && head.Next != nil {
+        temp := head.Next.Next
+        prev.Next = head.Next
+        head.Next.Next = head
+        prev = head
+        head = temp
+    }
+    prev.Next = head
+    return dummyHead.Next
 ```
 
 ---
