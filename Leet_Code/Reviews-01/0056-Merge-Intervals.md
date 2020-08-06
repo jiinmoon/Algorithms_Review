@@ -35,11 +35,9 @@ Go:
 import "sort"
 
 func merge(intervals [][]int) [][]int {
-    var (
-        res [][]int
-        sortedIntervals := sortIntervals(intervals)
-    )
-    for _, i := range sortedIntervals {
+    var res [][]int
+    sortIntervals(intervals)
+    for _, i := range intervals {
         if len(res) == 0 || res[len(res)-1][1] < i[0] {
             res = append(res, i)
         } else {
