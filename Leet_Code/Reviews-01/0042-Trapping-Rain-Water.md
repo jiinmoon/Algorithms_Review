@@ -51,6 +51,7 @@ func trap(height []int) int {
                 // current cell is lower than lMax; update ans
                 ans += (lMax - height[l])
             }
+            // update the pointer
             l++
         } else {
             if heights[r] > rMax {
