@@ -83,6 +83,6 @@ class Solution:
                 # still more dependencies left; visit later.
                 if not inDegrees[neighbour]:
                     q.append(neighbour)
-        return res if depth == numCourses else []
+        return res[::-1] if depth == numCourses else []
 ```
 
