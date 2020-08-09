@@ -77,3 +77,4 @@ func calculate(s []string) int {
     }
     return res
 }
+```
