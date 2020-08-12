@@ -38,8 +38,8 @@ func addTwoNumbers(l1, l2 *ListNode) *ListNode {
             c += l2.Val
             l2 = l2.Next
         }
-        c.Next = &ListNode{Val: c%10}
-        c = c.Next
+        prev.Next = &ListNode{Val: c%10}
+        prev = prev.Next
         c /= 10
     }
     return dummyHead.Next
