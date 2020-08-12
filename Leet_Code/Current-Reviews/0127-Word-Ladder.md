@@ -66,7 +66,7 @@ from collections import defaultdict
 class Solution:
     def ladderLength(self, beginWord, endWord, wordList):
         length = 1
-        visited = 0
+        visited = set()
         graph = defaultdict(set)
         if endWord not in wordList:
             return 0
