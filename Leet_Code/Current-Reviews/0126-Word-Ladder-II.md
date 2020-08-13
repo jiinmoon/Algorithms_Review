@@ -65,7 +65,7 @@ class Solution:
             
             # update parent record and advance front
             frontParents.update(nextFront)
-            front = nextFront
+            front = set(nextFront.keys())
 
         # swap it back; it will mess up the where we begin and end.
         if swapped:
