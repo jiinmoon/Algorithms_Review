@@ -30,10 +30,13 @@ class Solution:
         def fill(r, c):
             if image[r][c] != target:
                 return
-            image[r][c] newColor
+            image[r][c] = newColor
             for nR, nC in [ (r+1, c), (r-1, c), (r, c+1), (r, c-1) ]:
                 if nR >= 0 and nR < m and nC >= 0 and nC < n:
                     fill(nR, nC)
+
+        fill(sr, sc)
+        return image
 ```
 
 Go: Iterative DFS approach.
