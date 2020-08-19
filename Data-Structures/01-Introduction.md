@@ -97,3 +97,13 @@
     - IsEmpty();
 
 - To implement it, we may either use Array or LinkedList.
+
+#### List ADT Operations
+
+- add(T element) or append(T element);
+- add(int i, T element) or insert(int i, T element);
+- remove(int i);
+- set(int i, T element) or replace(int i, T element);
+- get(int i);
+- search(T element) or contains(T element);
+- sort();
