@@ -48,14 +48,17 @@ bool Insert(struct Array *arr, int index, int val)
     return false;
 }
 
-bool Delete(struct Array *arr, int index)
+int Delete(struct Array *arr, int index)
 {
     if (0 <= index && index < arr->length)
     {
-
-        return true;
+        int tmp = arr->A[index];
+        for (int i = index; i < arr->length-1; ++i)
+            arr->A[i] = arr->A[i+1];
+        arr->length--;
+        return tmp;
     }
-    return false;
+    return -1;
 }
 
 void DisplayArray(struct Array arr)
@@ -71,6 +74,8 @@ int main()
     DisplayArray(arr);
     Append(&arr, 50);
     Insert(&arr, -2, 99);
+    DisplayArray(arr);
+    Delete(&arr, 2);
     DisplayArray(arr);
     return 0;
 }
