@@ -18,22 +18,33 @@
 
 #include <iostream>
 
-void doubleNum(int &num)
+struct ListNode
 {
-    num *= 2;
+    int val;
+    struct ListNode *next;
+} *first = NULL;
+
+void createLinkedList(const int a[], const int size)
+{
+    int i;
+    struct ListNode *t, *last;
+    first = (struct ListNode*) malloc(sizeof(struct ListNode));
+    first->val = a[0];
+    first->next = NULL;
+    last = first;
+    for (i = 1; i < size; i++)
+    {
+        t = (struct ListNode*) malloc(sizeof(struct ListNode));
+        t->val = [A[i];
+        t->next = NULL;
+        last->next = t;
+    }
 }
+
 
 int main()
 {
-    int x = 100;
-    std::cout << x << std::endl;
-    doubleNum(x);
-    std::cout << x << std::endl;
-    int *p = &x;
-    doubleNum(*p);
-    std::cout << x << std::endl;
-    doubleNum(x);
-    std::cout << x << std::endl;
+    int a[] = {1,2,3,4,5};
 
     return 0;
 }
