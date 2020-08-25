@@ -58,7 +58,7 @@ class Solution:
                 # ignore its parent (returning to where it came from)
                 if depths[neigh] == depth-1:
                     conitnue
-                currentDepth = DFS(node, depth+1)
+                currentDepth = DFS(neigh, depth+1)
                 # cycle detected (visiting back to lower depth node)
                 # safe to delete current edge
                 if currentDepth <= depth:
