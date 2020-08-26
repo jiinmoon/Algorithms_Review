@@ -19,9 +19,41 @@ Could you do both operations in O(1) time complexity?
 Cache can be designed with a hashmap structure, with separate queue for
 maintaining the order of the least recently used unit.
 
+If the language supports a Doubly Linked Hast Set structure, that is a hashmap
+but also supports ordered traversal and removal in O(1), we can use it instead
+as well (such as OrderedDict in Python).
+
 ---
 
-Python:
+Python: OrderedDict approach.
+
+```python
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.m = OrderedDict()
+
+    def update(self, key):
+        val = self.m[key]
+        del self.m[key]
+        self.m[key] = val
+
+    def get(self, key):
+        if key in self.m:
+            return self.m[key]
+        return -1
+
+    def put(self, key, val):
+        if key in self.m:
+            self.update(key)
+        elif self.c == len(self.m):
+            removed = next(iter(self.m))
+            del self.m[removed]
+        self.m[key] = val
+```
+
+Python: Queue + HashMap approach.
 
 ```python
 from collections import deque
