@@ -22,6 +22,26 @@ on the timestamp that it was called with.
 
 ---
 
+CPP: deque approach (supports `pop_front` at O(1))
+
+```cpp
+#include <deque>
+
+class HitCounter
+{
+    private:
+        deque<int> q;
+    public:
+        HitCounter() { q = deque<int>(); }
+        void hit(int timestamp) { q.push_back(timestamp); }
+        int getHits(int timestamp)
+        {
+            for (; !q.empty() && timestamp - q[0] >= 300; q.pop_front());
+            return q.size();
+        }
+};
+```
+
 Python: deque appraoch (supports popleft at O(1))
 
 ```python
