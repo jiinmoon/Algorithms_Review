@@ -16,11 +16,41 @@ be input like `3a` or `2[4]`.
 
 ---
 
-We can use recursion to evaluate the result inside the brackets.
+We can use recursion to evaluate the result inside the brackets - or likewise,
+iteratively but use stack.
 
 ---
 
-Python:
+Python: Stack approach.
+
+```python
+class Paren:
+   OPEN = "["
+   CLOSED = "]"
+
+class Solution:
+    def decodeString(self, s):
+        stk = list()
+        n = 0
+        for char in s:
+            if char is Paren.OPEN:
+                stk.append(n)
+                n = 0
+            elif char is Paren.CLOSED:
+                currCharSegment = list()
+                curr = stk.pop()
+                while not isinstance(curr, int):
+                    currCharSegment.append(curr)
+                    curr = stk.pop()
+                stk += (currCharSegment * curr)
+            elif char.isdigit():
+                n = (n * 10) + int(char)
+            else:
+                stk.append(char)
+        return "".join(stk)
+```
+
+Python: Recursive solution.
 
 ```python
 class Solution:
