@@ -87,8 +87,6 @@ class Solution:
                     # every word differ in 1 length
                     wildcard = word[:i] + '.' + word[i+1:]
                     neighbours = graph[wildcard]
-                    # take away visited
-                    neighbours -= visited
                     # add to newFront
                     newFront |= neighbours
             front = newFront
