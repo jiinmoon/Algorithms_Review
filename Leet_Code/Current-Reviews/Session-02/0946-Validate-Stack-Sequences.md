@@ -14,18 +14,21 @@ over in popped, we have our valid stack sequence.
 
 ---
 
-Python:
+C++:
 
-```python
-class Solution:
-    def isValidStackSequence(self, pushed, popped):
-        stk = []
-        popped.reverse()
-        for num in pushed:
-            stk.append(num)
-            while stk and stk[-1] == popped[-1]:
-                stk.pop()
-                popped.pop()
-        return not popped
+```cpp
+
+class Solution {
+public:
+    bool isValidStkSequences(vector<int>& pushed, vector<int>& popped) {
+        vector<int> stk;
+        int i = 0;
+        for (auto num : pushed) {
+            stk.push_back(num);
+            for (; stk.size() > 0 && stk.back() == popped[i]; ++i, stk.erase(stk.end()-1));
+        }
+        return i == popped.size();
+    }
+}
 ```
 
