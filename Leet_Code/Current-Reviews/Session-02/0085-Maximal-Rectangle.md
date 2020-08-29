@@ -20,7 +20,41 @@ index indicates the furthest left and furthest right for the given column.
 
 ---
 
-Python:
+Python: combine with #84 approach.
+
+```python
+class Solution:
+    def findLargestRectInHist(self, hist):
+        if not hist:
+            return 0
+        hist = [0] + hist + [0]
+        stk = [0]
+        maxArea = 0
+        for i, bar in enumerate(hist[1:], 1):
+            while stk and hist[stk[-1]] > bar:
+                height = hist[stk.pop()]
+                width = i - [stk[-1]] - 1
+                maxArea = max(maxArea, height * width)
+            stk.append(i)
+        return maxArea
+    
+    def findMaximalRectangle(self, matrix):
+        if not matrix or not matrix[0]:
+            return 0
+        m, n = len(matrix), len(matrix[0])
+        hist = [0 for _ in range(n)]
+        totalArea = 0
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == '1':
+                    hist[j] += 1
+                else:
+                    hist[j] = 0
+                totalArea = max(totalArea, findLargestRectInHist(hist))
+        return totalArea
+```
+
+Python: maintaining left and right pointers to compute width at each col.
 
 ```python
 class Solution:
