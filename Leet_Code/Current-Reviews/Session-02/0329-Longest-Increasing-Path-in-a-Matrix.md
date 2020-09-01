@@ -18,6 +18,32 @@ So, the algorithm can run in O(m + n) time complexity.
 
 ---
 
+Python: `lru_cache` + DFS.
+
+```python
+from functools import lru_cache
+
+class Solution:
+    def longestIncreasingPath(self, matrix):
+        if not matrix or not matrix[0]:
+            return 0
+        m, n = len(matrix), len(matrix[0])
+
+        @lru_cache(None)
+        def dfs(x, y):
+            length = 0
+            for nextX, nextY in [(x+1,y), (x-1,y), (x,y+1), (x,y-1)]:
+                if 0 <= nextX < m and 0 <= nextY < n and matrix[x][y] < matrix[nextX][nextY]:
+                    length = max(length, dfs(nextX, nextY)
+            return length
+        
+        maxLenThusFar = 0
+        for i in range(m):
+            for j in range(n):
+                maxLenThusFar = max(maxLenThusFar, dfs(i, j))
+        return maxLenThusFar
+```
+
 Python: Memoization + DFS.
 
 ```python
