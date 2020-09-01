@@ -99,6 +99,7 @@ i           else:
         return (counter, i)
 
     def countOfAtoms(self, formula):
+        formula = "(" + formula + ")"
         counter, _ = countOfAtomsHelper(formula, 0)
         return "".join(
             [name + (str(count) if count > 1 else "") 
