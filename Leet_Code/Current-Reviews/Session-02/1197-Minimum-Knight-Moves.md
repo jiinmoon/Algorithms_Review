@@ -57,7 +57,7 @@ class Solution:
         # needed to avoid cycle
         visited = set()
 
-        while 1:
+        while q:
             _, movesThusFar, currentSquare = heappop(q)
             if currentSquare == (x, y):
                 return movesThusFar
@@ -74,6 +74,7 @@ class Solution:
             for nextSquare in nextCandidates:
                 if nextSquare not in visited:
                     heappush(q, [ astar(nextSquare)+movesThusFar, movesThusFar, nextSquare ])
+        return -1
 ```
 
 
