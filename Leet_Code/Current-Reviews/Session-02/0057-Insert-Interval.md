@@ -1,6 +1,14 @@
 57 Insert Interval
 ==================
 
+Given a set of non-overlapping intervals, insert a new interval into the
+intervals (merge if necessary).
+
+You may assume that the intervals were initially sorted according to their
+start times.
+
+---
+
 First, we find the position of the new interval on the given intervals list.
 This is done by expanding to left and right - finding the left interval and
 right interval.
@@ -17,18 +25,17 @@ Python:
 
 ```python
 class Solution:
-    def insert(self, intervals, new_interval):
+    def insert(self, intervals, new):
         m = len(intervals)
-        l, r = 0, m-1
+        left, right = 0, m-1
 
-        while l < m and new_interval[0] > intervals[l][1]:
-            l += 1;
-        while r >=0 and new_interval[1] < intervals[r][0]:
-            r -= 1;
+        while left < m and new[0] > intervals[left][1]: left += 1
+        while right >= 0 and new[1] < intervals[right][0]: right -= 1
 
-        if l <= r:
-            new_interval[0] = min(new_interval[0], intervals[l][0])
-            new_interval[1] = min(new_interval[1], intervals[r][1])
+        if left <= right:
+            new[0] = min(new[0], intervals[left][0])
+            new[1] = max(new[1], intervals[right][1])
 
-        return intervals[:l] + [new_interval] + intervals[r+1:]
+        return intervals[:left] + [new] + intervals[right+1:]
 ```
+
