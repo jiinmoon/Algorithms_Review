@@ -32,24 +32,21 @@ from collections import OrderedDict
 
 class LRUCache:
     def __init__(self, capacity):
-        self.m = OrderedDict()
-
-    def update(self, key):
-        val = self.m[key]
-        del self.m[key]
-        self.m[key] = val
+        self.d = OrderedDict()
 
     def get(self, key):
         if key in self.m:
-            return self.m[key]
+            val = self.m[key]
+            del self.m[key]
+            self.m[key] = val
+            return val
         return -1
 
     def put(self, key, val):
         if key in self.m:
-            self.update(key)
+            del self.m[key]
         elif self.c == len(self.m):
-            removed = next(iter(self.m))
-            del self.m[removed]
+            del self.m[next(iter(self.m))]
         self.m[key] = val
 ```
 
