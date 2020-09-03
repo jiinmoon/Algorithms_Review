@@ -63,7 +63,7 @@ class Solution:
             minQ.append(curr)
 
             # current abs diff from arr[left:right]
-            diff = abs(maxQ[0] - minQ[0])
+            diff = maxQ[0] - minQ[0]
 
             # if diff is greater than limit
             # scale inwards by moving left + 1
