@@ -49,22 +49,22 @@ class Solution:
         # tracks available number of elements
         f = collections.Counter(nums)
         # records number of subsequences ending on each element
-        subseq = collections.defaultdict(int)
+        subSeq = collections.defaultdict(int)
 
         for num in nums:
             if not f[num]: continue
             f[num] -= 1
 
             # can we extend from previous subsequence?
-            if seq[num - 1]:
-                seq[num - 1] -= 1
-                seq[num] += 1
+            if subSeq[num - 1]:
+                subSeq[num - 1] -= 1
+                subSeq[num] += 1
 
-            # can we create a new subsequence [num, num+1, num+2]?
+            # can we create a new subSequence [num, num+1, num+2]?
             elif f[num + 1] and f[num + 2]:
                 f[num + 1] -= 1
                 f[num + 2] -= 1
-                seq[num + 2] += 1
+                subSeq[num + 2] += 1
 
             # cannot extend nor make new subsequence
             else:
