@@ -48,7 +48,9 @@ class MovingAverage:
 
         # update insertion point
         self.ins = (self.ins+1) % len(self.circularArray)
-        count = sum(v != None for v in self.circularArray)
+        # terrible approach here
+        #count = sum(v != None for v in self.circularArray)
+        count = self.ins if self.CircularArray[-1] is None else len(self.circularArray)
         return self.total / count
 ```
 
