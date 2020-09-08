@@ -59,7 +59,7 @@ class SnapshotArray:
 
 Python: binary-search approach for get().
 
-```
+```python
 class SnapItem:
     def __init__(self, snapshotId=-1, val=0):
         self.item = (snapshotId, val)
