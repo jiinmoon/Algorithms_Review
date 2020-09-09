@@ -55,7 +55,7 @@ class Solution:
 
         for num in nums:
             # duplicate value or new straight to build
-            if not pq and pq[0][0] == num:
+            if not pq or pq[0][0] == num:
                 heappush(pq, (num, 1))
                 continue
             
