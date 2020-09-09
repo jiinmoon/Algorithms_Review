@@ -78,7 +78,7 @@ void Array<T>::clear()
 template <typename T>
 void Array<T>::add(T element)
 {
-
+    if (size() == capacity)
 
 
 }
