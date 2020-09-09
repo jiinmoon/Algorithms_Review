@@ -18,6 +18,37 @@ in O(n).
 
 ---
 
+C++:
+
+```cpp
+class Solution
+{
+public:
+    TreeNode* helper(TreeNode* node, bool hasParent, vector<TreeNode*> &res, unordered_set<int>& toDelete)
+    {
+        if (node == nullptr) return nullptr;
+        // use `contains(const Key& key)` in C++20
+        bool isDelete = toDelete.find(node->val) != toDelete.end();
+        if (!hasParent && !isDelete)
+            res.append(node);
+        node->left = helper(node->left, !isDelete, res, toDelete);
+        node->right = helper(node->right, !isDelete, res, toDelete);
+        return (isDelete) ? nullptr : node;
+    }
+
+    vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete)
+    {
+        vector<TreeNode*> res;
+        unordered_set<int> toDelete;
+        for (auto val : to_delete)
+            toDelete.insert(val);
+        helper(root, False, res, toDelete);
+        return res;
+    }
+};
+
+```
+
 Python:
 
 ```python
