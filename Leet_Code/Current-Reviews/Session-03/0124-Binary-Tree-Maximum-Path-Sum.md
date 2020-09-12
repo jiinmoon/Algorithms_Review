@@ -42,6 +42,6 @@ class Solution:
 
             return currWith, currDown
 
-        return helper(node)[0]
+        return helper(root)[0]
 ```
 
