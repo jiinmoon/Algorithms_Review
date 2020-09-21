@@ -1,4 +1,4 @@
-572 Sbutree of Another Tree
+572 Subtree of Another Tree
 ===========================
 
 Given two non-empty binary trees s and t, check whether tree t has exactly the
@@ -15,9 +15,29 @@ But simply, we can just serialize two trees, and perform pattern matching.
 
 ---
 
-Python:
+Python: tree traversal approach.
 
 ```python
+
+class Solution:
+    def isSameTree(self, s, t):
+        if not (s and t):
+            return s == t
+        if s.val != t.val:
+            return False
+        return self.isSameTree(s.left, t.left) and self.isSameTree(s.right, t.right)
+
+    def isSubtree(self, s, t):
+        if not s:
+            return False
+        # traverse through s while performing comparison on each. 
+        return self.isSameTree(s, t) or self.isSameTree(s.left, t) or self.isSameTree(s.right, t)
+```
+
+Python: codecs approach; it appears to be ~100 ms faster than other approach.
+
+```python
+
 class Solution:
     def isSubtree(self, s, t):
         sSerial, tSerial = [], []
