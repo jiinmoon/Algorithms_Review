@@ -1,8 +1,20 @@
 # 1120 Maximum Average Subtree
 
+Given the root of a binary tree, find the maximum average value of any subtree
+of that tree.
+
+(A subtree of a tree is any node of that tree plus all its descendants. The
+average value of a tree is the sum of its values, divided by the number of
+nodes.)
+
+---
+
 To find the maximum average value starting from any node and its subtree, we
 traverse the trees while counting the number of nodes within the node's subtree
 and the sum of all the nodes thus far - starting from bottom up fashion.
+
+The time complexity of this algorithm should be of typical DFS traversal on the
+binary tree, O(n).
 
 ---
 
