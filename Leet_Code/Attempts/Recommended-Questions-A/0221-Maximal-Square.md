@@ -28,7 +28,7 @@ class Solution:
             for j in range(1, n+1):
                 temp = dp[j]
                 # is current cell an extension of previous square?
-                if grid[i-1][j-1]:
+                if grid[i-1][j-1] == '1':
                     # potentially so, update maxSideThusFar
                     dp[j] = min(dp[j], dp[j-1], prev) + 1
                     maxSideThusFar = max(maxSideThusFar, dp[j])
