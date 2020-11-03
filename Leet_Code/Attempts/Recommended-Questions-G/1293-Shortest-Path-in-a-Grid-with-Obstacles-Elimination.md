@@ -32,7 +32,7 @@ class Solution:
         def helper(i, j):
             return abs(m - i - 1) + abs(n - j - 1)
 
-        if not grid or not grid[0] or grid[0][0] or grid[-1][-1]:
+        if not grid or not grid[0]:
             return -1
 
         m, n = len(grid), len(grid[0])
@@ -48,12 +48,13 @@ class Solution:
             if curr == (m-1, n-1)
                 return jumps
             # visited and expired
-            if curr in visited and visited[curr] >= eCount:
+            if curr in visited and visited[curr] <= eCount:
                 continue
+            visited[curr] = eCount
             i, j = curr
             for ni, nj in [(i+1,j),(i-1,j),(i,j+1),(i,j-1)]:
                 if 0 <= ni < m and 0 <= nj < n:
-                    heappush(pq, (helper(ni,nj), eCount + grid[ni][nj], jumps, (ni,nj))
+                    heappush(pq, (helper(ni,nj) + jumps, eCount + grid[ni][nj], jumps + 1, (ni,nj))
 
         return -1
 ```
