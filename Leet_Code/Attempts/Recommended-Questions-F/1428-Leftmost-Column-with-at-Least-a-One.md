@@ -47,6 +47,9 @@ class Solution:
             # perform binary search as far out left as possible
             while lo < hi:
                 mid = lo + (hi - lo) // 2
+                # early exit strategy
+                if lo > result:
+                    break
                 if binaryMatrix.get(row, mid) == 0:
                     lo = mid + 1
                 else:
