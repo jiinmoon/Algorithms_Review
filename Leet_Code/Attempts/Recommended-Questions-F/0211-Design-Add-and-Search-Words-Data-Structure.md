@@ -37,5 +37,11 @@ class WordDictionary:
         self.d[len(word)].append(word)
 
     def search(self, word):
-        return word in self.d[len(word]
+        for target in self.d[len(word)]:
+            for i, char in enumerate(target):
+                if word[i] != "." and word[i] != char:
+                    break
+            else:
+                return True
+        return False
 ```
