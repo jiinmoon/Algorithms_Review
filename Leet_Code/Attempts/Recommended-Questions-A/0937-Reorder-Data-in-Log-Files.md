@@ -26,6 +26,49 @@ the log order is determined.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+
+    public String[] reorderLogFiles(String[] logs) {
+        Arrays.sort(logs, (log1, log2) -> {
+            // split log into head and rest by first separator
+            int i = log1.indexOf(" ");
+            int j = log2.indexOf(" ");
+
+            // i, j are heads of the rest
+            boolean isLetter1 = Character.isLetter(log1.charAt(i+1));
+            boolean isLetter2 = Character.isLetter(log2.charAt(j+1));
+
+            // three cases:
+            // (1) both are letter-logs
+            // (2) log1 is letter-log
+            // (3) log2 is letter-log
+            if (isLetter1 && isLetter2) {
+                // both are logs; compare rest ordering first
+                String rest1 = log1.substring(i);
+                String rest2 = log2.substring(j);
+                // if rests are same, order by entire list instead
+                return (!rest1.equals(rest2)) ? 
+                            rest1.compareTo(rest2) : 
+                            log1.compareTo(log2);
+            } else if (isLetter1 && !isLetter2) {
+                // letter-log before digi-log
+                return -1;
+            } else if (!isLetter1 && isLetter2) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
+        return logs;
+    }
+}
+```
+
 Python:
 
 ```python
