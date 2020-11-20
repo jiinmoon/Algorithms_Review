@@ -29,7 +29,7 @@
 class ListNode:
     def __init__(self, val):
         self.val = val
-        self.left, self.right = None, None
+        self.next = None
 
 def mergeLists(self, A, B):
     # either is empty; return whichever exist
