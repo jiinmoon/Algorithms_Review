@@ -12,6 +12,41 @@ a OrderedDict which is a hashset using the doubly linked list.
 
 ---
 
+Java:
+
+```java
+
+import java.util.LinkedHaspMap;
+
+class LRUCache {
+    int capacity;
+    LinkedHashMap<Integer, Integer> m;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.m = new LinkedHashMap<>();
+    }
+
+    public int get(int key) {
+        int val = this.m.getOrDefault(key, -1);
+        if (val != -1) {
+            this.m.remove(key);
+            this.m.put(key, val);
+        }
+        return val;
+    }
+
+    public void put(int key, int val) {
+        if (this.m.containsKey(key)) {
+            this.get(key);
+        } else if (this.capacity == this.m.size()) {
+            this.m.remove(this.m.keySet().iterator().next());
+        }
+        this.m.put(key, val);
+    }
+}
+```
+
 Python:
 
 ```python
