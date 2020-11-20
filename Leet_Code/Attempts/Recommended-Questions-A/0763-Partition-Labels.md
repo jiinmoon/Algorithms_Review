@@ -13,6 +13,32 @@ it onto our result.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    public List<Integer> partitionLabels(String S) {
+        int[] record = new int[26];
+        for (int i = 0; i < S.length(); i++)
+            record[(int) S.charAt(i) - (int) 'a'] = i;
+        
+        List<Integer> result = new ArrayList<>();
+        int start, end;
+        start = end = 0;
+        for (int i = 0; i < S.length(); i++) {
+            end = Math.max(end, record[(int) S.charAt(i) - (int) 'a']);
+            if (i == end) {
+                result.add(end - start + 1);
+                start = i + 1;
+            }
+        }
+
+        return result;
+    }
+}
+```
+
 Python:
 
 ```python
