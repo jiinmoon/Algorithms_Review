@@ -11,7 +11,7 @@
 #
 # Attempt:
 #
-# One appraoch to this problem is perform recursive traversal on the given tree
+# One approach to this problem is perform recursive traversal on the given tree
 # S. At each node, we traverse downwards to confirm whether they are same
 # - which confirms that T is a subtree of S. As we need to perform traversal on
 # every single node again, the time complexity is O(m * n) where m and n are
@@ -27,4 +27,29 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 
-class 
+def isSame(self, p, q):
+    if not (p and q):
+        return p == q
+    if p.val != q.val:
+        return False
+    return self.isSame(p.left, q.left) and self.isSame(p.right, q.right)
+
+def isSubtreeRecur(self, S, T):
+    if not S:
+        return False
+    return self.isSame(S, T) or self.isSubtree(S, T.left) or self.isSubtree(S, T.right)
+
+def isSubtreeIter(self, S, T):
+    def serialize(node, result):
+        if not node:
+            result.append("None")
+            return
+        result.append(str(node.val))
+        serialize(node.left, result)
+        serialize(node.right, result)
+
+        serialS, serialT = [], []
+        serialize(S, serialS)
+        serialize(T, serialT)
+
+        return serialS in serialT
