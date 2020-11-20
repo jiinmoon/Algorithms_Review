@@ -12,6 +12,71 @@ with mapping created.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    Map<Integer, String> intMap;
+    Map<Integer, String> digitMap;
+
+    public Solution() {
+        this.intMap = new HashMap<>();
+        intMap.put(1, "One");       intMap.put(2, "Two");
+        intMap.put(3, "Three");     intMap.put(4, "Four");
+        intMap.put(5, "Five");      intMap.put(6, "Six");
+        intMap.put(7, "Seven");     intMap.put(8, "Eight");
+        intMap.put(9, "Nine");      intMap.put(10, "Ten");
+        intMap.put(11, "Eleven");   intMap.put(12, "Twelve");
+        intMap.put(13, "Thirteen"); intMap.put(14, "Fourteen");
+        intMap.put(15, "Fifteen");  intMap.put(16, "Sixteen");
+        intMap.put(17, "Seventeen");intMap.put(18, "Eighteen");
+        intMap.put(19, "Nineteen"); intMap.put(20, "Twenty");
+        intMap.put(30, "Thirty");   intMap.put(40, "Forty");
+        intMap.put(50, "Fifty");    intMap.put(60, "Sixty");
+        intMap.put(70, "Seventy");  intMap.put(80, "Eighty");
+        intMap.put(90, "Ninety");
+
+        this.digitMap = new HashMap<>();
+        digitMap.put(3, "Thousand");
+        digitMap.put(6, "Million");
+        digitMap.put(9, "Billion");
+    }
+    
+    public String numberToWords(int num) {
+        if (num == 0) return "Zero";
+        
+        List<String> result = new ArrayList<>();
+        int digit, thousand, hundred, ten;
+        digit = 0;
+
+        while (num != 0) {
+            thousand = num % 1000;
+            ten = thousand % 100;
+            num /= 1000;
+            hundred = thousand / 100;
+
+            if (digit > 0 && thousand > 0) result.add(this.digitMap.get(digit));
+            digit += 3;
+            
+            if (ten != 0) {
+                if (ten <= 20) {
+                    result.add(intMap.get(ten));
+                } else {
+                    if (ten % 10 != 0) result.add(intMap.get(ten % 10));
+                    result.add(intMap.get(10 * (ten / 10)));
+                }
+            }
+            
+            if (hundred > 0) result.add(intMap.get(hundred) + " Hundred");
+        }
+        Collections.reverse(result);
+        return String.join(" ", result);
+    }
+}
+
+```
+
 Python:
 
 ```python
