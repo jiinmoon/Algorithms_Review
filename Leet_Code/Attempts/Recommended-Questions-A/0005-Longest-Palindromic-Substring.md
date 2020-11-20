@@ -16,8 +16,8 @@ class Solution {
     public String longestPalindrome(String s) {
         String longest = "";
         for (int i = 0; i < s.length(); i++) {
-            s1 = expand(s, i, i);
-            s2 = expand(s, i, i+1);
+            String s1 = expand(s, i, i);
+            String s2 = expand(s, i, i+1);
             longest = Collections.max(
                 Arrays.asList(longest, s1, s2),
                 (String a, String b) -> {
