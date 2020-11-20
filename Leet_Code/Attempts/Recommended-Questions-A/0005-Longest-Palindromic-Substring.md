@@ -10,6 +10,33 @@ expand out as far out as possible to check for the palindrome.
 
 ---
 
+```java
+
+class Solution {
+    public String longestPalindrome(String s) {
+        String longest = "";
+        for (int i = 0; i < s.length(); i++) {
+            s1 = expand(s, i, i);
+            s2 = expand(s, i, i+1);
+            longest = Collections.max(
+                Arrays.asList(longest, s1, s2),
+                (String a, String b) -> {
+                    return Integer.valueOf(a.length()).compareTo(b.length());
+                });
+        }
+        return longest;
+    }
+
+    private String expand(String s, int start, int end) {
+        while (start >= 0 && end < s.length() and s.charAt(start) == s.charAt(end)) {
+            start--;
+            end++;
+        }
+        return s.substring(start+1, end);
+    }
+}
+```
+
 Python:
 
 ```python
