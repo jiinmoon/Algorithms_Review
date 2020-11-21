@@ -13,6 +13,41 @@ start time, we can remove the room since it would be come available.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    public int meetingRooms(int[][] intervals) {
+        int m = intervals.length;
+        int[] startTimes = new int[m];
+        int[] endTimes = new int[m];
+
+        for (int i = 0; i < m; i++) {
+            startTimes[i] = intervals[i][0];
+            endTimes[i] = intervals[i][1];
+        }
+
+        Arrays.sort(startTimes);
+        Arrays.sort(endTimes);
+
+        int start, end, result;
+        start = end = result = 0;
+
+        while (start < m) {
+            if (startTimes[start] >= endTimes[end]) {
+                result--;
+                end++;
+            }
+            result++;
+            start++;
+        }
+
+        return result;
+    }
+}
+```
+
 Python:
 
 ```python
