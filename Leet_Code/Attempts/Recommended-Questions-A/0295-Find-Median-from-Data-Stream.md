@@ -11,7 +11,43 @@ list. To do so efficiently, we may use the insertion sort which can gurantee
 a relatively fast sorting method. The best approach however would be to use the
 min and max heap to maintain the top half and bottom half.
 
+Time complexity for adding would be in logrithmic and finding median would be
+constant. Space complexity is O(n).
+
 ---
+
+Java:
+
+```java
+
+import java.util.PriorityQueue;
+
+class MedianFinder {
+    private PriorityQueue<Integer> leftPQ;  // max-heap
+    private PriorityQueue<Integer> rightPQ; // min-heap
+
+    public MedianFinder() {
+        this.leftPQ = new PriorityQueue<>(Collections.reverseOrder());
+        this.rightPQ = new PriorityQueue<>();
+    }
+
+    public void addNum(int num) {
+        this.leftPQ.add(num);
+        this.rightPQ.add(this.leftPQ.remove());
+        // always balance to left
+        if (this.leftPQ.size() < this.rightPQ.size())
+            this.leftPQ.add(this.rightPQ.remove());
+    }
+
+    public double findMedian() {
+        return (this.leftPQ.size() > this.rightPQ.size()) ? 
+            this.leftPQ.peek() :
+            (double) (this.leftPQ.peek() + this.rightPQ.peek()) / 2;
+    }
+}
+
+
+```
 
 Python:
 
