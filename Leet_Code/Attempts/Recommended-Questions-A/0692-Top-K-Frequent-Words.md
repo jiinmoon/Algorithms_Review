@@ -14,6 +14,57 @@
 
  ---
 
+Java:
+
+```java
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+
+class Solution {
+    // HeapItem maintains (word, count)
+    static public HeapItem implements Comparable<HeapItem> {
+        private String word;
+        private int count;
+
+        public HeapItem(String word, int count) {
+            this.word = word;
+            this.count = count;
+        }
+        
+        @Override
+        public int compareTo(HeapItem other) {
+            // return first by count
+            // if same, return by lexicographically
+            return (this.count != other.count) ?
+                this.count - other.count :
+                other.word.compareTo(this.word);
+        }
+    }
+
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> counter = new HashMap<>();
+        for (String word : words)
+            counter.put.(word, counter.getOrDefault(word, 0) + 1);
+
+        PriorityQueue<HeapItem> pq = new PriorityQueue<>();
+        for (String word : counter.keySet()) {
+            pq.add(new HeapItem(word, counter.get(word));
+            if (pq.size() > k) pq.remove();
+        }
+
+        List<String> result = new ArrayList<String>;
+        while (!pq.isEmpty()) result.add(pq.remove().word);
+
+        Collections.reverse(result);
+
+        return result;
+    }
+}
+
+```
+
  Python:
 
  ```python
