@@ -27,6 +27,53 @@ out as O(log(n)) since we are collapsing the travel distance.
 
 ---
 
+Java:
+
+```java
+
+import java.util.HashSet;
+
+class Solution {
+    // collapse all nodes into same group
+    public int unionFind(int node, int[] union) {
+        while (node != union[node]) {
+            union[node] = union[union[node]];
+            node = union[node];
+        }
+
+        return node;
+    }
+
+    public int findCircleNum(int[][] M) {
+        if (M.length == 0 || M[0].length == 0)
+            return -1;
+
+        int m = M.length;
+
+        int[] union = new int[m];
+        for (int i = 0; i < m; i++)
+            union[i] = i;
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                if (M[i][j] == 1)
+                    // i is friend with j
+                    // collapse both under same group
+                    union[unionFind(i, union)] = unionFind(j, union);
+            }
+        }
+        
+        // collection unique friend groups
+        Set<Integer> result = new HashSet<>();
+        for (int node = 0; node < m; node++)
+            result.add(unionFind(node, union));
+
+        return result.size();
+    }
+}
+
+```
+
 Python:
 
 ```python
