@@ -25,6 +25,49 @@ checking for their membership within the wordDict.
 
 ---
 
+Java:
+
+```java
+
+import java.util.HashMap;
+
+class Solution {
+
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        return helper(s, wordDict, 0, new HashMap<>());
+    }
+
+    public List<String> helper(String s, List<String> wordDict, int left, Map<Integer, List<String>> memo) {
+        // every index has fixed solution - use memoization to avoid duplicate
+        if (memo.containsKey(left))
+            return memo.get(left);
+
+        // from every position, consider every word
+        List<string> result = new LinkedList<>();
+        for (String word : wordDict) {
+            if (s.startsWith(word, left)) {
+                // prefix
+                if (s.length() == word.length() + left) {
+                    result.add(word);
+                // there are more suffixes to discover
+                } else {
+                    List<String> suffixes = helper(s, wordDict, left + word.length(), memo);
+                    // concatenate all suffixes to prefix
+                    for (String suffix : suffixes)
+                        result.add(word + " " + suffix);
+                }
+            }
+        }
+
+        memo.put(left, result);
+
+        return result;
+    }
+}
+
+
+```
+
 Python:
 
 ```python
