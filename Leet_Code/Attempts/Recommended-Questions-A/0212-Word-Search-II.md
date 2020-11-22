@@ -18,6 +18,73 @@ see whether current character exist in the Trie.
 
 ---
 
+Java:
+
+```
+
+import java.util.HashMap;
+import java.util.LinkedList;
+
+class Solution {
+    
+    static class TrieNode {
+        String word;
+        Map<Character, TrieNode> children;
+
+        public TrieNode() { this.children = new HashMap<>(); }
+    }
+
+    public List<String> findWords(char[][] board, List<String> words) {
+        if (board.length == 0 || board[0].length == 0 || words.isEmpty())
+            return new LinkedList<>();
+
+        TrieNode root = new TrieNode();
+        for (String word : words) {
+            TrieNode curr = root;
+            for (char c : word.toCharArray()) {
+                if (!curr.children.containsKey(c))
+                    curr.children.put(c, new TrieNode());
+                curr = curr.children.get(c);
+            curr.word = word;
+        }
+
+        List<String> result = new LinkedList<>();
+        
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                helper(i, j, root, board, result);
+            }
+        }
+        return result;
+    }
+
+    public void helper(int i, int j, TrieNode node, char[][] board, List<String> result) {
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] == '0')
+            return;
+
+        char currChar = board[i][j];
+        if (!node.children.containsKey(currChar))
+            return;
+
+        TrieNode currNode = node.children.get(currChar);
+        if (currNode.word != null) {
+            result.add(currNode.word);
+            currNode.word = null;
+        }
+
+        board[i][j] = '0';
+        helper(i+1, j, currNode, board, result);
+        helper(i-1, j, currNode, board, result);
+        helper(i, j+1, currNode, board, result);
+        helper(i, j-1, currNode, board, result);
+        board[i][j] = currChar;
+    }
+
+}
+
+
+```
+
 Python:
 
 ```python
