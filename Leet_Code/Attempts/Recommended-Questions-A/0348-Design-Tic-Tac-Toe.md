@@ -32,6 +32,49 @@ cols, up-diagonal, down-diagonal lines. This way, we can check who won in O(1).
 
 ---
 
+Java:
+
+```java
+
+class TicTacToe {
+    
+    private int BoardSize, upDiag, downDiag;
+    private int[] rows, cols;
+
+    public TicTacToe(int n) {
+        this.BoardSize = n;
+        this.upDiag = this.downDiag = 0;
+        this.rows = new int[n];
+        this.cols = new int[n];
+    }
+
+    public int move(int row, int col, int player) {
+        int score = (player == 1) ? -1 : 1;
+
+        this.rows[row] += score;
+        this.cols[col] += score;
+
+        if (Math.abs(this.rows[row]) == this.BoardSize || Math.abs(this.cols[col]) == this.BoardSize)
+            return player;
+
+        if (row == col) {
+            this.downDiag += score;
+            if (Math.abs(this.downDiag) == this.BoardSize) return player;
+        }
+
+        if (row + col == this.BoardSize - 1) {
+            this.upDiag += socre;
+            if (Math.abs(this.upDiag) == this.BoardSize) return player;
+        }
+        
+        return 0;
+    }
+
+}
+
+
+```
+
 Python:
 
 ```python
@@ -48,7 +91,7 @@ class TicTacToe:
 
         self.rows[r] += score
         self.cols[c] += score
-        if abs(sum(self.rows)) == self.n or abs(sum(self.cols)) == self.n:
+        if abs(self.rows[row]) == self.n or abs(self.cols[col]) == self.n:
             return player
 
         if r + c == self.n - 1:
