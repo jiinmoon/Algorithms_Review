@@ -20,6 +20,54 @@ target node exists.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    
+    public List<Integer> allNodesDistK(TreeNode root, TreeNode target, int K) {
+        List<Integer> result = new LinkedList<>();
+        searchAll(root, target, K, result);
+        return result;
+    }
+
+    public void searchDown(TreeNode curr, int d, result) {
+        if (curr == null) return;
+        if (d == 0) result.add(curr.val);
+        else {
+            searchDown(curr.left, d - 1, result);
+            searchDown(curr.right, d - 1, result);
+        }
+    }
+    
+    public int searchAll(TreeNode curr, TreeNode target, int K, List<Integer> result) {
+        if (curr == null) return -1;
+        if (curr.val == target.val) {
+            searchDown(curr, K, result);
+            return 0;
+        }
+
+        int left = searchAll(curr.left, target, K, result);
+        int right = searchAll(curr.right, target, K, result);
+
+        if (left == -1 && right == -1) return -1;
+
+        int dist = Math.max(left, right) + 1;
+
+        if (K - dist == 0) result.add(curr.val);
+        else if (K - dist > 0) {
+            TreeNode otherSide = (left == -1) ? curr.left : curr.right;
+            searchDown(otherSide, K - dist - 1);
+        }
+
+        return K - dist;
+    }
+
+}
+
+```
+
 Python:
 
 ```python
