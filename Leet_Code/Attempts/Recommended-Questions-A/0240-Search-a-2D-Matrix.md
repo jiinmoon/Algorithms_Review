@@ -18,6 +18,32 @@ O(m * n) time complexity.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix.length == 0 || matrix[0].length == 0)
+            return false;
+        
+        // start from right top most corner
+        int r = 0;
+        int c = matrix[0].length - 1;
+
+        while (r < matrix.length && c >= 0) {
+            if (matrix[r][c] == target) return true;
+            if (matrix[r][c] > target) c--;
+            else r++;
+        }
+
+        return false;
+    }
+}
+
+```
+
 Python:
 
 ```python
