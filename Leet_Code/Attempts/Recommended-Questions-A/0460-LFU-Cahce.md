@@ -41,6 +41,87 @@ items in the pq.
 
 ---
 
+Java:
+
+```java
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+
+class LFUCache {
+    
+    static class Triplet implements Comparable<Triplet> {
+        private int time, frequency, key;
+
+        public Triplet(int time, int frequency, int key) {
+            this.time = time;
+            this.frequency = freqeuency;
+            this.key = key;
+        }
+        
+        @Override
+        public int compareTo(Triplet other) {
+            // compare first by frequency then time
+            int cmp = Integer.compare(this.frequency, other.frequency)
+            return (cmp != 0) cmp : Integer.compare(this.time, other.time)
+        }
+    }
+    
+    private int capacity, time;
+    private HashMap<Integer, Integer> map;
+    private HashMap<Integer, List<Integer>> freqTimeMap;
+    private Set<Integer> updateKeySet;
+    private PriorityQueue<Triplet> pq;
+
+    public LFUCache(int capacity) {
+        this.capacity = capacity;
+        this.time = 0;
+        this.map = new HashMap<>();
+        this.freqTimeMap = new HashMap<>();
+        this.updateKeySet = new HashSet<>();
+        this.pq = new PriorityQueue<>();
+    }
+
+    public int get(int key) {
+        if (!this.map.containsKey(key)) return -1; 
+
+        this.time++;
+        List<Integer> freq_time = this.freqTimeMap.get(key);
+        this.freqTimeMap.put(key, List.of(freq_time.get(0), this.time));
+        this.updateKeySet.add(key);
+        return this.map.get(key);
+    }
+    
+    public void put(int key, int value) {
+        if (this.capacity <= 0)
+            return -1;
+
+        this.time++;
+        if (this.map.containsKey(key)) {
+            get(key);
+        } else {
+            if (this.capacity == this.map.size()) {
+                while (!this.pq.isEmpty() && this.updateKeySet.contains(this.pq.peek().key)) {
+                    int updateKey = this.pq.remove().key;
+                    List<Integer> freqTime = this.freqTimeMap.get(updateKey);
+                    this.pq.add(new Triplet(freqTime.get(0), freqTime.get(1), updateKey));
+                    this.updateKeySet.remove(updateKey);
+                }
+                int removeKey = pq.remove().key;
+                this.freqTimeMap.remove(removeKey);
+                this.amp.remove(removeKey);
+            }
+            this.freqTimeMap.put(key, List.of(0, this.time));
+            this.pq.add(new Triplet(0, this.time, key));
+        }
+        this.map.put(key, value);
+    }
+}
+
+
+```
+
 Python:
 
 ```python
