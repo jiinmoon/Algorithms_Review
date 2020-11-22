@@ -10,9 +10,40 @@ Return the max sliding window.
 ---
 
 We use deque data structure to maintain the maximum values for the current
-sliding window. The sliding window is maintained by its indicies.
+sliding window. The sliding window is maintained by its indicies so that we can
+easily identify the current size.
+
+Time complexity of this algorithm would be O(n) which is same as the space
+complexity required to maintain our window.
 
 ---
+
+Java:
+
+```java
+
+from java.util.ArrayDeque;
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        List<Integer> result = new ArrayList<>();
+        Deque<Integer> q = new ArrayDeque<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            while (!q.isEmpty() && nums[q.peekLast()] < nums[i])
+                q.removeLast();
+            q.addLast(i);
+            if (q.peekFirst() <= i - k)
+                q.removeFirst();
+            if (i >= k - 1)
+                result.add(nums[q.peekFirst()]);
+        }
+
+        return result.stream().mapToInt(i->i).toArray();
+    }
+}
+
+```
 
 Python:
 
