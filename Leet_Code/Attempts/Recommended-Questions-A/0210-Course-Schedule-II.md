@@ -21,6 +21,53 @@ the list of courses that have been finished their prerequisites.
 
 ---
 
+Java:
+
+```java
+
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+class Solution {
+    
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        int[] degree = new int[numCourses];
+        for (int[] prereqs : prerequisites) {
+            int prevCourse = prereqs[0];
+            int nextCourse = prereqs[1];
+            List<Integer> neighbours = graph.getOrDefault(prevCourse, new LinkedList<>());
+            neighbours.add(nextCourse);
+            graph.put(prevCourses, neighbours);
+
+            degree[nextCourse]++;
+        }
+
+        Deque<Integer> queue = new LinkedList<>();
+        for (int course = 0; course < numCourses; course++) {
+            if (degree[course] == 0) queue.add(course);
+        }
+
+        Deque<Integer> result = new LinkedList<>();
+        while (!queue.isEmpty()) {
+            int curr = queue.removeFirst();
+            result.addFirst(curr);
+            for (int neigh : graph.getOrDefault(curr, new LinkedList<>())) {
+                degree[neigh]--;
+                if (degree[neigh] == 0) queue.addLast(neigh);
+            }
+        }
+
+        return (Arrays.stream(degree).sum() == 0) ?
+            result.stream().mapToInt(i->i).toArray() :
+            new int[]{};
+    }
+}
+
+```
+
+
 Python:
 
 ```python
