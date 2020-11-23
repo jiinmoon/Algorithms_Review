@@ -26,6 +26,39 @@ should be O(n).
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    
+    public int calPoints(String[] ops) {
+        Deque<Integer> stk = new LinkedList<>();
+
+        for (String op : ops) {
+            try {
+                int num = Integer.valueOf(op);
+                stk.addLast(num);
+            } except (NumberFormatException e) {
+                if (op.equals("+")) {
+                    int a = stk.removeLast();
+                    int b = stk.removeLast();
+                    stk.addAll(List.of(b, a, a + b));
+                } else if (op.equals("D")) {
+                    stk.add(stk.peekLast() * 2);
+                } else if (op.equals("C")) {
+                    stk.removeLast();
+                }
+            }
+        }
+
+        return stk.stream().mapToInt(i->i).sum();
+    }
+
+}
+
+```
+
 Python:
 
 ```python
