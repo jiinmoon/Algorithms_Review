@@ -18,6 +18,27 @@ O(m^2) in time complexity but will be constant in space.
 
 ---
 
+Java:
+
+```
+
+class Solution {
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+        if (s == null) return false;
+        return isSame(s, t) || isSubtree(s.left, t) || isSubtree(s.right, t);
+    }
+
+    private boolean isSame(TreeNode s, TreeNode t) {
+        if (s == null || t == null) return s == null && t == null;
+        return (s.val != t.val) ? 
+            false :
+            isSame(s.left, t.left) && isSame(s.right, t.right);
+    }
+}
+
+
+```
+
 Python:
 
 ```python
