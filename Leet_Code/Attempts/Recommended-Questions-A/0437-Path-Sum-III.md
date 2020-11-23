@@ -14,9 +14,42 @@ The tree has no more than 1,000 nodes and the values are in the range
 
 As we traverse down on the given binary tree, we maintain the partial path sum.
 By using a record of partial path sums and the number of path count that has
-such paths, we can easily find the total count in recursive manner.
+such paths, we can easily find the total count in recursive manner. The time
+complexity and space should both be linear.
 
 ---
+
+Java:
+
+```java
+
+import java.util.HashMap;
+
+class Solution {
+    public int pathSum(TreeNode root, int sum) {
+        // map of current prefix path sum to path count
+        Map<Integer, Integer> m = new HashMap<>();
+        m[0] = 1;
+        return helper(root, 0, sum, m);
+    }
+
+    private int helper(TreeNode node, int partialSum, int targetSum, Map<Integer, Integer> m) {
+        if (node == null) return 0;
+
+        partialSum += node.val;
+        int count = m.getOrDefault(partialSum - targetSum, 0);
+
+        m.put(partialSum, m.getOrDefault(partialSum, 0) + 1);
+        count += helper(node.left, partialSum, targetSum, m);
+        count += helper(node.right, partialSum, targetSum, m);
+        m.put(partialSum, m.get(partialSum) - 1);
+
+        return count;
+    }
+}
+
+```
+
 
 Python:
 
