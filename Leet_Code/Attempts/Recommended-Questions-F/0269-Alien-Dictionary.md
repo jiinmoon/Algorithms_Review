@@ -31,6 +31,76 @@ determined their status of visitation.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    
+    public String alienDictionary(String[] words) {
+
+        // create a graph and a counter of unique characters
+        // graph tracks the toplogical direction of characters
+        // indegree tracks the inward edges towards nodes
+        Map<Character, List<Character>> graph = new HashMap<>();
+        Map<Character, Integer> indegree = new HashMap<>();
+
+        for (String word : words) {
+            for (char c : word.toCharArray()) {
+                graph.put(c, new LinkedList<>());
+                indegree.put(c, 0);
+            }
+        }
+
+        // find edges; unique chars differ at each index points from prev to curr
+        for (int i = 1; i < word.length; i++) {
+            String prev = words[i-1];
+            String curr = words[i];
+            
+            for (int j = 0; j < Math.min(prev.length(), curr.length()); j++) {
+                if (prev.charAt(j) != curr.charAt(j)) {
+                    // previous char points to current char
+                    graph.get(prev.charAt(j)).add(curr.charAt(j));
+                    // increase degree of current char
+                    indegree.put(curr.charAt(j), indegree.get(curr.charAt(j) + 1));
+                    break;
+                }
+            }
+            
+            // think of cases such as "qkts" -> "qk"
+            if (prev.length() > curr.length() && prev.startsWith(curr))
+                return "";
+        }
+        
+        // perform toplogical traversal
+        // start from all nodes with no indegree edges
+        StringBuilder result = new StringBuilder();
+        Deque<Character> q = new LinkedList<>();
+        for (char c : indegree.keySet()) {
+            if (indegree.get(c) == 0) q.add(c);
+        }
+
+        while (!q.isEmpty()) {
+            char curr = q.remove();
+            // current is all visited; safe to add to result
+            result.append(curr);
+            for (char neighbour : graph.get(curr)) {
+                // update neighbour; it is visited and decrease its indegree count
+                indegree.put(neighbour, indegree.get(neighbour) - 1);
+                if (indegree.get(neighbour) == 0)
+                    q.add(neighbour);
+            }
+        }
+        
+        // after finished visiting all nodes, we should have no indegrees leftover 
+
+        return (counts.values().stream().mapToInt(i->i.intValue()).sum() == 0) ?
+            result.toString() : "";
+    }
+}
+
+```
+
 Python:
 
 ```python
