@@ -19,6 +19,35 @@ since maintaining the heap is a logrithmic in time complexity.
 
 ---
 
+Java:
+
+```java
+
+import java.util.PriorityQueue;
+
+class Solution {
+    
+    public int connectSticks(int[] sticks) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(
+            Arrays.stream(sticks).boxed.collect(Collectors.asList));
+
+        int result = 0;
+        while (pq.size() > 1) {
+            int x = pq.remove();
+            int y = pq.remove();
+            result += (x + y);
+            pq.add(x + y);
+        }
+
+        return result;
+    }
+
+}
+
+
+
+```
+
 Python:
 
 ```python
