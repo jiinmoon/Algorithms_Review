@@ -11,6 +11,37 @@ from the depth and add to our result. The time complexity should be O(n).
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+
+    public List<Integer> rightSideView(TreeNode root) {
+        if (root == null) return new LinkedList<>();
+
+        Deque<TreeNode> queue = new LinkedList<>(List.of(root));
+        List<Ineger> result = new LinkedList<>();
+
+        while (!queue.isEmpty()) {
+            Deque<TreeNode> temp = new LinkedList<>();
+            result.add(queue.peekLast().val);
+
+            while (!queue.isEmpty()) {
+                TreeNode curr = queue.removeFirst();
+                if (curr.left != null) temp.add(curr.left);
+                if (curr.right != null) temp.add(curr.right);
+            }
+
+            queue = temp;
+        }
+
+        return result;
+    }
+}
+
+```
+
 Python:
 
 ```python
