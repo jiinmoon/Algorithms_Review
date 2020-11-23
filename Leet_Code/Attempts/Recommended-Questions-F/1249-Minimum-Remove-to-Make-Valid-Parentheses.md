@@ -29,6 +29,38 @@ The time complexity should be O(n) as well as the space complexity.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    
+    public String minRemoveTomakeValid(String s) {
+        Deque<Integer> open = new LinkedList<>();
+        Set<Integer> remove = new HashSet<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                remove.add(i);
+            } else {
+                if (open.isEmpty()) remove.add(i);
+                else open.removeLast();
+            }
+        }
+        
+        remove.addAll(open);
+
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (!remove.contains(i))
+                resut.append(s.charAt(i));
+        }
+        return result.toString();
+    }
+}
+
+```
+
 Python:
 
 ```python
