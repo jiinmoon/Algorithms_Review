@@ -30,21 +30,94 @@ This algorithm should complete in O(n).
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    
+    private int result = Integer.MIN_VALUE;
+
+    public int maxPathSum(TreeNode root) {
+        helper(root);
+        return this.result;
+    }
+
+    public int helper(TreeNode node) {
+        if (node == null) return 0;
+        
+        // ignore negative values;
+        int leftSum = Math.max(0, helper(node.left));
+        int rightSum = Math.max(0, helper(node.right));
+        this.result = Math.max(this.result, node.val + leftSum + rightSum);
+        int currSum = Math.max(Math.max(leftSum, rightSum) + node.val, 0);
+
+        return currSum;
+    }
+}
+
+```
+
+Java:
+
+```java
+
+class Solution {
+    
+    static class Pair {
+        private int with, down;
+
+        public Pair(int with, int down) {
+            this.with = with;
+            this.down = down;
+        }
+    }
+
+    public int mathPathSum(TreeNode root) {
+        Pair result = helper(root);
+        return result.with;
+    }
+
+    private Pair helper(TreeNode node) {
+        if (node == null)
+            return new Pair(Integer.MIN_VALUE, 0);
+
+        Pair lPair = helper(node.left);
+        Pair rPair = helper(node.right);
+        int cWith = Math.max(
+                        Math.max(
+                            node.val + Math.max(0, lPair.down) + Math.max(0, rPair.down), 
+                            lPair.with), 
+                        rPair.with);
+        int cDown = node.val + 
+                        Math.max(
+                            Math.max(0, lPair.down),
+                            rPair.down);
+
+        return new Pair(cWith, cDown);
+    }
+}
+
+```
+
 Python:
 
 ```python
 
 class Solution:
     def maxPathSum(self, root):
+        self.result = float('-inf')
+
         def helper(node):
             # return include and exclude path sum
             if not node:
-                return float('-inf'), 0
-            lWith, lDown = helper(node.left)
-            rWith, rDown = helper(node.right)
-            currWith = max(node.val + max(0, lDown) + max(0, rDown), lWith, rWith)
-            currDown = node.val + max(0, lDown, rDown)
-            return currWith, currDown
-
-        return helper(root)[0]
+                return 0
+            l = max(0, helper(node.left))
+            r = max(0, helper(node.right))
+            self.result = max(self.result, l + r + node.val)
+            currSum = max(max(l, r) + node.val, 0)
+            return currSum
+        
+        helper(root)
+        return self.result
 ```
