@@ -17,6 +17,31 @@ palindrome. This would be O(n) in time complexity.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    
+    public boolean isValidPalindrome(String s) {
+        int m = s.length();
+        int i = 0;
+        while (i < (m + 1) / 2) {
+            if (s.charAt(i) != s.charAt(m - i - 1) {
+                String f = s.substring(i+1, m - i);
+                String b = s.substring(i, m - i - 1);
+                String rev_f = new StringBuilder(f).reverse().toString();
+                String rev_b = new StringBuilder(b).reverse().toString();
+                return f.equals(rev_f) || b.equals(rev_b);
+            }
+            i++;
+        }
+        return true;
+    }
+}
+
+```
+
 Python:
 
 ```python
