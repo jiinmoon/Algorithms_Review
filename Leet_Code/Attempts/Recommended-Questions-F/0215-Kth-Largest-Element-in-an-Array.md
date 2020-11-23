@@ -13,6 +13,48 @@ iteration. The time complexity would be O(n).
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    
+    public int findKthLargest(int[] nums, int k) {
+        int l = 0;
+        int r = nums.length - 1;
+
+        while (true) {
+            int pivot = partition(nums, l, r);
+            if (pivot == k)
+                return nums[k];
+            if (pivot > k) r = pivot - 1;
+            else l = pivot + 1;
+        }
+    }
+
+    public int partition(int[] nums, int l, int r) {
+        int pivot = (int) Math.random() * (r - l + 1) + l;
+        int pivotVal = nums[pivot];
+        nums[pivot] = nums[r]; nums[r] = pivotVal;
+
+        int ins = l;
+        for (int i = l; i < r; i++) {
+            if (nums[i] <= pivotVal) {
+                int temp = nums[ins];
+                nums[ins] = nums[i];
+                nums[i] = temp;
+                ins++;
+            }
+        }
+
+        nums[r] = nums[ins];
+        nums[ins] = pivotVal;
+        return ins;
+    }
+}
+
+```
+
 Python:
 
 ```python
