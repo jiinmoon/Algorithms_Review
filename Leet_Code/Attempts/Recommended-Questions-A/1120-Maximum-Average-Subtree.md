@@ -13,9 +13,46 @@ To find the max average of any subtree, we first traverse all the way down to
 the bottom of the tree. As we recursively move up to given tree, we return the
 count of the nodes we have seen as well as the sum of the all the node values.
 By using these, we can compute the average value at every subtree starting from
-each of the node.
+each of the node. Time complexity would be O(n) and space complexity is O(n).
 
 ---
+
+Java:
+
+```java
+
+class Solution {
+    
+    static class Pair {
+        int count, sum;
+
+        public Pair(int count, int sum) {
+            this.count = count;
+            this.sum = sum;
+        }
+    }
+
+    double result = 0;
+    
+    public double maximumAverageSubtree(TreeNode root) {
+        helper(root);
+        return this.result;
+    }
+
+    public Pair helper(TreeNode node) {
+        if (node == null) return new Pair(0, 0);
+        Pair lPair = helper(node.left);
+        Pair rPair = helper(node.right);
+        int currCount = 1 + lPair.count + rPair.count;
+        int currSum = node.val + lPair.sum + rPair.sum;
+        this.result = Math.max(this.result, (double) currSum / currCount);
+        return new Pair(currCount, currSum);
+    }
+}
+
+
+```
+
 
 Python:
 
