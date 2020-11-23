@@ -19,6 +19,51 @@ length of the word and n is the number of words given.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    
+    public boolean isAlienSorted(String[] words, String order) {
+
+        // create lexicographical order based on given alien dictionary
+        int[] alien_dict = new int[26];
+        for (int i = 0; i < order.length(); i++)
+            alien_dict[order.charAt(i) - 'a'] = i;
+
+        // check every pair of words for sorted order
+        for (int i = 1; i < words.length+1; i++) {
+            if (checkAlienOrder(words[i-1], words[i], alien_dict))
+                return false;
+        }
+        return true;
+    }
+    
+    public boolean checkAlienOrder(String word1, String word2, int[] dict) {
+        // iterate forward comparing char by char and their mapped order in dict
+        int i = 0;
+        while (i < word1.length() && i < word2.length()) {
+            int word1_order = dict[word1.charAt(i) - 'a'];
+            int word2_order = dict[word2.charAt(i) - 'a'];
+            
+            if (word1_order == word2_order) {
+                i++;
+                continue;
+            } else if (word1_order > word2_order) {
+                return true;
+            }
+
+            return false;
+        }
+        // if terminated, all chars upto i has been matched
+        // then, word1 size should be smaller than word2 at least
+        return word1.length() > i;
+    }
+}
+
+```
+
 Python:
 
 ```python
