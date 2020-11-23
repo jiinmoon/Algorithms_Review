@@ -18,6 +18,44 @@ current price introduced.
 
 ---
 
+Java:
+
+```java
+
+import java.util.LinkedList;
+
+class StockSpanner {
+    
+    static class Pair {
+        private int price, span;
+
+        public Pair(int price, int span) {
+            this.price = price;
+            this.span = span;
+        }
+    }
+
+    private Deque<Pair> stk;
+
+    public StockSpanner() { this.stk = new LinkedList<>(); }
+
+    public int next(int price) {
+        int span = 1;
+
+        while (!this.stk.isEmpty() && this.stk.peekLast().price <= price) {
+            Pair prev = this.stk.removeLast();
+            span += prev.span;
+        }
+
+        this.stk.addLast(new Pair(price, span));
+        return span;
+    }
+}
+
+
+```
+
+
 Python:
 
 ```python
