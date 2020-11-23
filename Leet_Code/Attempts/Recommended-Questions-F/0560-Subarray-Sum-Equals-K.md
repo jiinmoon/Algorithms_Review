@@ -12,6 +12,29 @@ complete in O(n) time complexity.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    
+    public int subarraySum([]int nums) {
+        Map<Integer, Integer> m = new HashMap<>();
+        int currSum = 0;
+        int result = 0;
+        for (int num : nums) {
+            currSum += num;
+            if (num == k) result++;
+            result += m.getOrDefault(currSum - k, 0);
+            int count = m.getOrDefault(currSum, 0);
+            m.put(currSum, count +1);
+        }
+        return result;
+    }
+}
+
+```
+
 Python:
 
 ```python
