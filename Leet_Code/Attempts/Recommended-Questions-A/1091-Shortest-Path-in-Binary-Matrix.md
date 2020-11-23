@@ -23,6 +23,83 @@ as well as avoiding exploring on the path that has the worst branching factor.
 
 ---
 
+Java:
+
+```java
+
+import java.util.Deque;
+import java.util.LinkedList;
+
+// approach this problem by visualizing it as a single number line
+// entire line spans from 0 to m + n - 1
+// hence, current cell at (row, col) can be represented as (row * col + col)
+// row = (current / col)
+// col = (current % col)
+
+class Solution {
+
+    public int shortestPathBinaryMatrix(int[][] grid) {
+        if (grid.length == 0 || grid[0].length == 0) return -1;
+        if (grid.length == 1) return (grid[0] == 0) ? 1 : 0;
+
+        int m = grid.length;
+        int n = grid[0].length;
+        
+        if (grid[0][0] == 1 || grid[m-1][n-1] == 1) return -1;
+        
+        // start from (0,0) and (m-1,n-1)
+        Deque<Integer> front = new LinkedList<>(List.of(0));
+        Deque<Integer> back = new LinkedList<>(List.of((m-1)*n + n));
+        
+        // visited; mark front and back separately to detect overlap
+        boolean[][] visitedFront = new boolean[m][n];
+        boolean[][] visitedBack = new boolean[m][n];
+        visitedFront[0][0] = true;
+        visitedBack[m-1][n-1] = true;
+        
+        // already covered trivial case of length 1; start from 2
+        int result = 2;
+
+        while (!front.isEmpty() && !back.isEmpty()) {
+            if (front.size() > back.size()) {
+                Deque<Integer> tempDeque = front;
+                front = back;
+                back = tempDeque;
+
+                boolean[][] tempVisited = visitedFront;
+                visitedFront = visitedBack;
+                visitedBack = tempVisited;
+            }
+
+            int size = front.size();
+            while (size-- > 0) {
+                int pos = front.removeFirst();
+                int x = pos / n;
+                int y = pos % n;
+                for (int dx : new int[]{-1, 0, 1}) {
+                    for (int dy : new int[]{-1, 0, 1}) {
+                        int nx = x + dx;
+                        int ny = y + dy;
+                        if (nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
+                        if (visitedFront[nx][ny]) continue;     // visited
+                        if (grid[nx][ny] == 1) continue;        // blocked
+                        if (visitedBack[nx][ny]) return result; // goal reached
+
+                        visitedFront[nx][ny] = true;
+                        front.addLast((nx*n) + ny);
+                    }
+                }
+            }
+
+            result++;
+        }
+        return -1;
+    }
+}
+
+
+```
+
 Python:
 
 ```python
