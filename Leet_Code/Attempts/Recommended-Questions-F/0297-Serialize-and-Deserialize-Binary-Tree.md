@@ -19,6 +19,49 @@ complexity.
 
 ---
 
+Java:
+
+```java
+
+class Codec {
+    
+    public String serialize(TreeNode root) {
+        List<String> result = new LinkedList<>();
+        serializeHelper(root, result);
+        return String.join(",", result);
+    }
+
+    private void serializeHelper(TreeNode node, List<String> result) {
+        if (node == null) {
+            result.add("Null");
+        } else {
+            result.add(Integer.toString(node.val));
+            serializeHelper(node.left, result);
+            serializeHelper(node.right, result);
+        }
+    }
+
+    public TreeNode deserialize(String data) {
+        Deque<String> nodes = new LinkedList<>(Arrays.asList(data.split(",")));
+        return deserializeHelper(nodes);
+    }
+
+    private TreeNode deserializeHelper(Deque<String> nodes) {
+        if (nodes.isEmpty()) return null;
+
+        String curr = nodes.removeFirst();
+        if (curr.equals("Null")) return null;
+
+        TreeNode node = new TreeNode(Integer.valueOf(curr));
+        node.left = deserializeHelper(nodes);
+        node.right = deserializeHelper(nodes);
+
+        return node;
+    }
+}
+
+```
+
 Python:
 
 ```python
