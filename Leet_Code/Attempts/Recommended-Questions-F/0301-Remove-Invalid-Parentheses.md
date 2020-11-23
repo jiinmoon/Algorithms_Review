@@ -34,6 +34,65 @@ time complexity.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+
+    public List<String> removeInvalidParentheses(String s) {
+        int invalidOpen = 0;
+        int invalidClosed = 0;
+
+        for (char c : s.toCharArray()) {
+            if (c == '(')) invalidOpen++;
+            else if (c == ')') {
+                if (invalidOpen > 0) invalidOpen--;
+                else invalidClosed++;
+            }
+        }
+
+        Set<String> result = new HashSet<>();
+        helper(new StringBuilder(), 0, 0, 0, invalidOpen, invalidClosed, s, result);
+
+        return new LinkedList<>(result);
+    }
+
+    public void helper(StringBuilder path, int i, int l, int r, int lRem, int rRem, String s, Set<String> result) {
+        // base case; index reached end of string
+        // should have removed all invalid parentheses
+        if (i == s.length()) {
+            if (lRem == 0 && rRem == 0)
+                result.add(path.toString());
+            return;
+        }
+
+        // current character is either open or closed paren
+        // consider removing them first
+        char curr = s.charAt(i);
+        
+        if (curr == '(' && lRem > 0)
+            helper(path, i+1, l, r, lRem-1, rRem, s, result);
+        else if (curr == ')' && rRem > 0)
+            helper(path, i+1, l, r, lRem, rRem-1, s, result);
+
+        // 3 cases:
+        // it is normal character or parentheses we just added to path
+        path.append(curr);
+        if (curr != '(' && curr != ')')
+            helper(path, i+1, l, r, lRem, rRem, s, result);
+        else if (curr == '(')
+            helper(path, i+1, l+1, r, lRem, rRem, s, result);
+        // close only when more open were added previously
+        else if (curr == ')' && l > r)
+            helper(path, i+1, l, r+1, lRem, rRem, s, result);
+
+        path.deleteCharAt(path.length()-1);
+    }
+}
+
+```
+
 Python:
 
 ```python
