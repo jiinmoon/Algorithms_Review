@@ -20,6 +20,43 @@ should be O(n) for construction and O(log(n)) for choosing random index.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+
+    private int[] weights;
+
+    public Solution(int[] w) {
+        this.weights = new int[w.length];
+        int temp = 0;
+        for (int i = 0; i < w.length; i++) {
+            temp += w[i];
+            this.weights[i] = temp;
+        }
+    }
+
+    public int pickIndex() {
+        int target = (int) Math.random() * this.weights[this.weights-1] + 1;
+        return binarySearchLeft(target);
+    }
+    
+    // find left most occurrence of target or would be insert position
+    private int binarySearchLeft(int target) {
+        int l = 0;
+        int r = this.weights.length - 1;
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            if (this.weights[mid] > target) l = mid + 1;
+            else r = mid;
+        }
+        return l;
+    }
+}
+
+```
+
 Python:
 
 ```python
