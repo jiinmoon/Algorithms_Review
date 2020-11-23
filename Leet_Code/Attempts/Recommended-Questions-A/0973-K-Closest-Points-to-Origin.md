@@ -25,33 +25,43 @@ import java.util.PriorityQueue;
 
 class Solution {
     // custom heap item to compare by distance
-    static class HeapItem implements Comparable<HeapItem> {
-        private int distance;
-        private int points[];
+    static class Point implements Comparable<Point> {
+        private int distance, x, y;
 
-        public HeapItem(int distance, int[] points) {
+        public Point(int distance, int x, int y) {
             this.distance = distance;
-            this.points = points;
+            this.x = x;
+            this.y = y;
         }
 
-        int compareTo(HeapItem other) { return this.distance - other.distance; }
+        public int compareTo(Point other) { 
+            return Integer.compare(this.distance, other.distance; 
+        }
     }
 
     public int[][] kClosest(int[][] points, int k) {
         // create a min-heap
-        PriorityQueue<HeapItem> pq = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Points> pq = new PriorityQueue<>(Collections.reverseOrder());
 
         // collect points and compute distance; add unto pq but only maintain k
         for (int i = 0; i < points.length; i++) {
-            pq.add(new HeapItem(
-                (int) Math.pow(arr[i][0], 2) + Math.pow(arr[i][1], 2), arr[i]);
-            if (pq.size() > k) pq.remove();
+            pq.add(new Points(
+                (int) Math.pow(arr[i][0], 2) + Math.pow(arr[i][1], 2), 
+                arr[i][0],
+                arr[i][1]);
+
+            if (pq.size() > k) 
+                pq.remove();
         }
 
-        List<int[]> result = new ArrayList<>(k);
-        while (!pq.isEmpty()) result.add(pq.remove().points);
+        int[][] result = new int[k][2];
+        for (int i = 0; i < k; i++) {
+            Point p = pq.remove();
+            result[i][0] = p.x;
+            result[i][1] = p.y;
+        }
 
-        return result.toArray(new int[k][2]);
+        return result;
     }
 }
 
