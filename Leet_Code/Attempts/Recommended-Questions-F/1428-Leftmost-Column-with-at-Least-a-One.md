@@ -33,6 +33,32 @@ the cols.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+
+    public int leftMostColumnWithOne(BinaryMatrix binaryMatrix) {
+        List<Integer> dim = binaryMatrix.dimensions();
+        int m = dim.get(0);
+        int n = dim.get(1);
+
+        if (m == 0 || n == 0) return -1;
+
+        int result = Integer.MAX_VALUE;
+        for (int row = 0; row < m; row++) {
+            int l = binarySearchLeft(binaryMatrix, row, 0, n-1);
+            if (binaryMatrix.get(row, l) == 1)
+                result = min(result, l);
+        }
+        
+        return (result != Integer.MAX_VALUE) ? result : -1;
+    }
+}
+
+```
+
 Python:
 
 
