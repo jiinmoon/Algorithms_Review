@@ -14,6 +14,32 @@ amount in the record. The time and space complexity should be O(n).
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    
+    public int numPairsDivisibleBy60(int[] time) {
+        int result = 0;
+        int[] record = new int[60];
+
+        for (int t : time) {
+            int other = 60 - (t % 60);
+            if (other == 60) other = 0;
+            result += record[other];
+            record[t % 60]++;
+        }
+
+        return result;
+    }
+}
+
+```
+
+
+Python:
+
 ```python
 
 class Solution:
