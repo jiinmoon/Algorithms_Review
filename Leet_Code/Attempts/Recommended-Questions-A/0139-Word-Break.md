@@ -19,6 +19,33 @@ array upto that index j where s[j:i] is the current substring considered.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+
+    public boolean wordBreak(String s, List<String> wordDict) {
+        HashSet<String> words = new HashSet<>(wordDict);
+        int m = s.length();
+        boolean[] dp = new boolean[m+1];
+        dp[0] = true;
+
+        for (int i = 1; i < m + 1; i++) {
+            for (int j = i - 1; i >= 0; j--) {
+                if (dp[j] && words.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+
+        return dp[m];
+    }
+}
+
+```
+
 Python:
 
 ```python
