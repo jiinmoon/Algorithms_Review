@@ -33,6 +33,68 @@ would be O(n).
 
 ---
 
+Java: improved; more compact method.
+
+```java
+
+class Solution {
+
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        HashSet<String> words = new HashSet<>(wordList);
+
+        if (!words.contains(endWord))
+            return 0;
+        
+
+        HashSet<String> front = new HashSet<>(List.of(beginWord));
+        HashSet<String> back = new HashSet<>(List.of(endWord));
+        int length = 1;
+
+        while (!front.isEmpty()) {
+            Set<String> nextFront = new HashSet<>();
+
+            for (String word : front) {
+                char[] chars = word.toCharArray();
+                for (int i = 0; i < word.length(); i++) {
+                    for (char c = 'a'; c <= 'z'; c++) {
+                        // possible but slow compared to chars array method (34 ms vs 12 ms)
+                        // String nextWord = s.substring(0, i) + String.valueOf(s) + s.substring(i+1);
+
+                        char temp = chars[i];
+                        chars[i] = c;
+
+                        String nextWord = String.valueOf(chars);
+
+                        if (back.contains(nextWord))
+                            return length + 1;
+
+                        if (words.contains(nextWord)) {
+                            words.remove(nextWord);
+                            nextFront.add(nextWord);
+                        }
+
+                        chars[i] = temp;
+                    }
+                }
+            }
+
+            if (nextFront.isEmpty())
+                return 0;
+
+            if (front.size() > back.size()) {
+                front = back;
+                back = nextFront;
+            } else {
+                front = nextFront;
+            }
+            length++;
+        }
+        return 0;
+    }
+}
+
+```
+
 Java:
 
 ```java
