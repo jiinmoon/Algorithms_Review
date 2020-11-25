@@ -25,6 +25,34 @@ checking for their membership within the wordDict.
 
 ---
 
+Python: improved;
+
+```python
+
+class Solution:
+
+    def wordBreak(self, s, words):
+        
+        @functools.lru_cache(None)
+        def helper(left):
+            result = list()
+            for word in words:
+                # word is a prefix to current string segment starting from left
+                if s[left:].startswith(word):
+                    # it is a last word to discover in string
+                    if len(word) + left == len(s):
+                        result.append(word)
+                    # otherwise, there are more suffixes to discover after word
+                    else:
+                        suffixes = helper(left + len(word))
+                        for suffix in suffixes:
+                            result.append(word + " " + suffix)
+            return result
+
+        return helper(0)
+
+```
+
 Java:
 
 ```java
