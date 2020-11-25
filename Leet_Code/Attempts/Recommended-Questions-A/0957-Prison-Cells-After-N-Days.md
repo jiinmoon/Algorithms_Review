@@ -32,12 +32,66 @@ the operation as it will be simple repeatition from these states.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+
+    public int[] prisonAfterNDays(int[] cells, int N)
+    {
+        // Create object to put into map
+        List<Integer> states = new ArrayList<>();
+        for (int i : cells)
+            states.add(i);
+
+        HashMap<List<Integer>, Integer> record = new HashMap<>();
+        int passedDays = 0;
+
+        while (passedDays < N && !record.containsKey(states))
+        {
+            record.put(states, passedDays);
+            passedDays++;
+            states = nextStates(states);
+        }
+
+        if (passedDays < N)
+        {
+            int cycle = days - record[states];
+            int remain = (N - record[states]) % cycle;
+            while (remain-- > 0)
+                states = nextStates(states);
+        }
+
+        int[] result = new int[8];
+        for (int i = 0; i < 8; i++)
+            result[i] = states.get(i);
+
+        return result;
+    }
+
+    public List<Integer> nextStates(List<Integer> states)
+    {
+        List<Integer> result = new ArrayList<>();
+        result.add(0);
+
+        for (int i = 1; i < 7; i++)
+            result.add(
+                (states.get(i) == 1^ states.get(i+1) == 1) ? 0 : 1);
+
+        result.add(0);
+        return result;
+    }
+}
+
+```
+
 Python:
 
 ```python
 
 class Solution:
-    def prisionCellsAfterNDays(self, cells, n):
+    def prisonCellsAfterNDays(self, cells, n):
         def nextCells(cells):
             return tuple([0] + [int(not(cells[i-1] ^ cells[i+1])) for i in range(1,7)] + [0])
 
