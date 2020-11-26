@@ -23,6 +23,82 @@ be O(n^3).
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+
+    public double[] calcEquations(List<List<String>> equations, double[] values, List<List<String>> queries)
+    {
+        // map equations[i][j] to 2D array; assign node number
+        // i.e. A / B is assigned a node number 0
+        int m = equations.size(), nodeNum = 0;
+        int[][] eqMatrix = new int[m][2];
+        Map<String, Integer> eqMap = new HashMap<>();
+
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                String node = equations.get(i).get(j);
+                if (eqMap.contains(node)) {
+                    eqMatrix[i][j] = eqMap.get(node);
+                } else {
+                    eqMatrix[i][j] = nodeNum;
+                    eqMap.put(node, nodeNum);
+                }
+            }
+        }
+        
+        // create adjcency matrix
+        double[][] adjMatrix = new double[nodeNum][nodeNum];
+
+        for (int i = 0; i < m; i++)
+        {
+            // A / A = 1
+            adjMatrix[i][i] = 1;
+            // A / B = val 
+            adjMatrix[eqMatrix[i][0]][eqMatrix[i][1]] = values[i];
+            // B / A = 1 / val
+            adjMatrix[eqMatrix[i][1]][eqMatrix[i][0]] = values[i];
+        }
+
+        // floyd-warshall; iterate to compute possible pairings
+        for (int A = 0; A < nodeNum; A++)
+        {
+            for (int B = 0; B < nodeNum; B++)
+            {
+                for (int C = 0; C < nodeNum; C++)
+                {
+                    if (adjMatrix[B][C] == 0 && adjMatrix[B][A] != 0 && adjMatrix[A][C] != 0) {
+                        // B / C = B / A * A / C
+                        adjMatrix[B][C] = adjMatrix[B][A] * adjMatrix[A][C];
+                        adjMatrix[C][B] = 1 / adjMatrix[B][C];
+                    }
+                }
+            }
+        }
+
+        // collect queries
+        double[] result = new double[queries.size()];
+
+        for (int i = 0; i < queries.size(); i++)
+        {
+            String A = queries.get(i).get(0);
+            String B = queries.get(i).get(1);
+
+            if (eqMap.containsKey(A) && eqMap.containsKey(B)
+                result[i] = adjMatrix[eqMap.get(A)][eqMap.get(B)];
+            result[i] = (result[i] == 0) ? -1 : result[i];
+        }
+        
+        return result;
+    }
+}
+
+```
+
 Python:
 
 ```python
