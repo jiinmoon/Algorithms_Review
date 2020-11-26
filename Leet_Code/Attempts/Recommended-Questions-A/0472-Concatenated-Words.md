@@ -15,6 +15,60 @@ word is fixed, we can use memoization to save work.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+
+    HashMap<String, Boolean> memo;
+
+    public List<String> findAllConcatenatedWords(String[] words)
+    {
+        if (words == null || words.length == 0)
+            return new ArrayList<>();
+
+        HashSet<String> dict = new HashSet<>();
+        for (String word : words)
+            dict.add(word);
+
+        List<String> result = new ArrayList<>();
+        for (String word : words)
+        {
+            dict.remove(word);
+            if (helper(word, dict))
+                result.add(word);
+            dict.add(word);
+        }
+
+        return result;
+    }
+    
+    public boolean helper(String s, Set<String> dict)
+    {
+        if (s == null || s.equals("") || dict.size() == 0)
+            return false;
+
+        for (int i = 1; i < s.length() + 1; i++)
+        {
+            String prefix = s.substring(0, i);
+            String suffix = s.substring(i);
+            // either both prefix and suffix is in the dict
+            // or suffix can be recursively broken down further
+            if (dict.contains(prefix) && (dict.contains(suffix) || helper(suffix))
+            {
+                this.memo.put(s, true);
+                return true;
+            }
+        }
+
+        this.memo.put(s, false);
+        return false;
+    }
+}
+
+```
+
 Python:
 
 ```python
