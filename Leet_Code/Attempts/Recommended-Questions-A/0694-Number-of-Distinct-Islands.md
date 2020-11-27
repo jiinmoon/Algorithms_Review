@@ -12,9 +12,61 @@ reflected) to equal the other.
 
 To find the number of distinct islands, we create a set of "relative"
 coordinates of all the islands found in uniform manner while traversing on the
-given grid.
+given grid. We hash each of the x, y coordinates that we visit.
+
+O(m * n) in time complexity and space.
 
 ---
+
+Java:
+
+```java
+
+class Solution {
+    
+    private Set<Integer> relCoords;
+
+    public int numDistinctIslands(int[][] grid)
+    {
+        if (grid == null || grid.length == 0 || grid[0].length == 0)
+            return 0;
+        
+        Set<Set<Integer>> result = new HashSet<>();
+
+        for (int i = 0; i < grid.length; i++)
+        {
+            for (int j = 0; j < grid[0].length; j++)
+            {
+                if (grid[i][j] == 1)
+                {
+                    this.relCoords = new HashSet<>();
+                    helper(i, j, i, j, grid);
+                    if (!this.relCoords.isEmpty()
+                        result.add(this.relCoords);
+                }
+            }
+        }
+
+        return result.size();
+    }
+
+    private void helper(int i, int j, int i0, int j0, int[][] grid)
+    {
+        if (i < 0 || j < 0 || i >= this.grid.length || j >= this.grid[0].length || this.grid[i][j] != 1)
+            return;
+        
+        grid[i][j] = 0;
+        this.relCoords.add(hash(i - i0, j - j0));
+        helper(i+1, j, i0, j0, grid);
+        helper(i-1, j, i0, j0, grid);
+        helper(i, j+1, i0, j0, grid);
+        helper(i, j-1, i0, j0, grid);
+    }
+
+    private int hash(int x, int y) { return (x + 5) * 13 + y; }
+}
+
+```
 
 Python:
 
