@@ -20,7 +20,69 @@ list of banned words.
 
 ---
 
-Python:
+Java: iterate char-by-char approach;
+
+Things to note here:
+
+(1) Converting to char array, and accessing via indexing is faster than
+repeatedly calling String.charAt(int) function. This will take more space but
+is worth it most of time.
+
+(2) StringBuilder is better in general compared to using string concatenation
+operation.
+
+```java
+
+class Solution {
+
+    public String mostCommonWord(String paragraph, String[] banned)
+    {
+        char[] paragraphChars = paragraph.toCharArray();
+        Set<String> bannedWords = new HashSet<>(Arrays.asList(banned));
+        Map<String, Integer> counter = new HashMap<>();
+        
+        StringBuilder currWord = new StringBuilder();
+        String result = "";
+        int maxCount = 0;
+
+        for (int i = 0; i < paragraphChars.length(); i++)
+        {
+            char currChar = paragraphChars[i];
+
+            // 1. current char is A-Z, a-z, 0-9; add to current word to build
+            if (Character.isLetter(currChar))
+            {
+                currWord.append(Character.toLowerCase(currChar));
+                // we may forget the last word (i.e. "Bob")
+                // hence, stop only when index has not reached the end;
+                if (i != paragraphChars.length() - 1)
+                    continue;
+            }
+
+            // 2. is a break-point and word has been found
+            if (currWord.length() > 0)
+            {
+                String curr = currWord.toString();
+                if (!bannedWords.contains(curr))
+                {
+                    int currCount = counter.getOrDefault(curr, 0);
+                    if (currCount > maxCount) {
+                        maxCount = currCount;
+                        result = curr;
+                    }
+                    counter.put(curr, currCount + 1);
+                } 
+                currWord = new StringBuilder();
+            }
+        }
+
+        return result;
+    }
+}
+
+```
+
+Python: regex approach;
 
 ```python
 
