@@ -15,6 +15,56 @@ complexity.
 
 ---
 
+Java:
+
+```java
+
+class Solution {
+    private char[][] map = new char[][] {
+        {}, {},                 // 0, 1
+        {'a', 'b', 'c'},        // 2
+        {'d', 'e', 'f'},        // 3
+        {'g', 'h', 'i'},        // 4
+        {'j', 'k', 'l'},        // 5
+        {'m', 'n', 'o'},        // 6
+        {'p', 'q', 'r', 's'},   // 7
+        {'t', 'u', 'v'},        // 8
+        {'w', 'x', 'y', 'z'}    // 9
+    };
+    
+    private String s;
+    
+    public List<String> letterCombinations(String digits) {
+        if (digits == null || digits.equals(""))
+            return new ArrayList<>();
+        
+        this.s = digits;
+        List<String> result = new ArrayList<>();
+        
+        helper(0, new StringBuilder(), result);
+        
+        return result;
+    }
+    
+    private void helper(int i, StringBuilder path, List<String> result)
+    {
+        if (i >= this.s.length()) {
+            result.add(path.toString());
+            return;
+        }
+        
+        int curr = (int) this.s.charAt(i) - '0';
+        for (char digit : this.map[curr])
+        {
+            path.append(digit);
+            helper(i+1, path, result);
+            path.deleteCharAt(path.length() - 1);
+        }
+    }
+}
+
+```
+
 Python:
 
 ```python
