@@ -59,6 +59,27 @@ class Solution {
 
 ```
 
+Python: heap method;
+
+```python
+
+import heapq
+
+class Solution1268:
+
+    def suggestedProducts(self, products, searchWord):
+        
+        result = list()
+
+        for i in range(1, len(searchWord) + 1):
+            prefix = searchWord[:i]
+            pq = [p for p in products in p.startswith(prefix)]
+            result.append(heapq.nsmallest(3, pq))
+
+        return result
+
+```
+
 Python: binary search method;
 
 ```python
