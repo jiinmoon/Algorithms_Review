@@ -42,14 +42,15 @@ class Solution564:
                 j -= 1
             return int("".join(temp))
         
+        mid = 10 ** (len(n) // 2)
         n = int(n)
         original = helper(n)
         
         // find mid-way point where palindrome centre is
         // increment and decrement to check the difference
-        mid_point = 10 ** (len(n) // 2)
-        larger = helper((n // mid_point) * mid_point + mid_point + 1)
-        smaller = helper((n // mid_point) * mid_point- 1)
+        // same as left shifting by mid-way point and copy left into right
+        larger = helper((n // mid) * mid + mid + 1)
+        smaller = helper((n // mid) * mid- 1)
 
         if original > result and original < larger:
             larger = original
