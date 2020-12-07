@@ -44,6 +44,15 @@ We can still improve on our space complexity down to O(1) since when we look at
 our dp definition, `dp[i + 1]` ever depends upon two previous cases. Hence,
 instead of entire dp array, we only have to store two previous variables.
 
+### (3) Backtracking with memoization.
+
+We can use backtracking algorithm to try out all different possible ways to
+decode the string. At every index, we try to check for single and two digit
+cases. Since there can be duplicate solutions exist and we can arrive at same
+indicies while exploring all possible ways, we can record solutions to the
+subproblems to reduce time complexity. This would be O(n) in both time and
+space compleixty.
+
 ---
 
 Python: DP with O(1) space.
@@ -80,7 +89,7 @@ Python: DP with O(n) space.
 
 ```python
 
-class Solution:
+class Solution91:
 
     def numDecodings(self, s: str) -> int:
 
@@ -103,4 +112,40 @@ class Solution:
                 dp[i+1] += dp[i-1]
         
         return dp[-1]
+```
+
+Python: Backtracking with memoization.
+
+```python
+
+from functools import lru_cache
+
+class Solution91:
+
+    def numDecodings(self, s):
+
+        if not s:
+            return 0
+        
+        @lru_cache(None)
+        def helper(i):
+            # base cases:
+            # 1. reached the end of string
+            # 2. current char is '0'; is not mapped to any decodings
+            # 3. cannot extend further to try for two digits
+
+            if i == len(s):
+                return 1
+            if s[i] == '0':
+                return 0
+            if i == len(s)-1:
+                return 1
+            
+            result = helper(i+1)                # single digit case
+            if 10 <= int(s[i:i+2]) <= 26:
+                result += helper(i+2)           # double digit case
+
+            return result
+
+        return helper(0)
 ```
