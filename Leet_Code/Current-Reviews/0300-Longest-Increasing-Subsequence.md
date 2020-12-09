@@ -26,6 +26,85 @@ where insertion point has been found by minimum of either two. Using this
 method, we can update our subsequence in O(log(n)) time. Thus, overall time
 complexity would be O(n * log(n)) and space complexity would be O(n).
 
+
+Let's try an example:
+
+```
+(1) arr = [1, 2, 1, 5]
+
+    Step:1      
+        
+        Current element is 1 and our result is empty; add.
+
+                curr    =   1
+                result  =   [1]
+    
+    Step:2
+
+        Current element is 2 and it can extend; add.
+
+                curr    = 2
+                result  = [1, 2]
+
+    Step:3
+
+        Current element is 1 and it is smaller; looking back, 1 replaces 1.
+
+                curr    = 1
+                result  = [1, 2]
+
+    Step:4
+
+        Current element is 5 and it can extend; add.
+
+                curr    = 5
+                result  = [1, 2, 5]
+
+---
+
+(2) arr = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]
+
+    Step:1
+        
+                curr    = 0
+                    -> binSearch(0) = 0
+                result  = [0]
+
+    Step:2
+
+                curr    = 8
+                    -> binSearch(8) = 1
+                result  = [0, 8]
+
+    Step:3
+                
+                curr    = 4
+                result  = [0, 4]
+
+    Step:4
+                
+                curr    = 12
+                result  = [0, 4, 12]
+
+    Step:5
+                
+                curr    = 2
+                    -> binSearch(2) = 1
+                result  = [0, 2, 12]
+
+    Step:6
+
+                curr    = 10
+                result  = [0, 2, 10]
+
+    Step:7
+
+                curr    = 6
+                result  = [0, 2, 6]
+
+    ...
+```
+
 ---
 
 Java: Binary Search Right.
