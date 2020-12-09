@@ -17,6 +17,52 @@ Time complexity would be O(n) and O(1) in space complexity.
 
 ---
 
+Java:
+
+```java
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution61 {
+
+    public ListNode rotateRight(ListNode head, int k) 
+    {
+        if (Objects.isNull(head) || Objects.isNull(head.next))
+            return head;
+        
+        ListNode newHead, newTail, curr;
+        newHead = newTail = curr = head;
+        
+        int length = 0;
+        for (;Objects.nonNull(curr); 
+                curr = curr.next, length++);
+        
+        k %= length;
+        
+        for (; k-- > 0; 
+                newHead = newHead.next);
+        
+        for (;Objects.nonNull(newHead.next); 
+                newHead = newHead.next, newTail = newTail.next);
+        
+        newHead.next = head;
+        newHead = newTail.next;
+        newTail.next = null;
+        
+        return newHead;
+    }
+}
+
+```
+
 Python:
 
 ```python
