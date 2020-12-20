@@ -14,7 +14,7 @@ For insertion sort, we first skip over the next node while saving pointer to
 the next node. Then, start from the head, we iterate to find the correct place
 where the target node is to be inserted.
 
-O(n * log(n)) in time complexity.
+O(n^2) in time complexity.
 
 ---
 
