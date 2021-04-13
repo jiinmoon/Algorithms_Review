@@ -19,10 +19,10 @@ on-going substring without the repeat, or if duplicate is found, we simply
 update the hashmap with the lastest position of the duplicated entry, and
 truncate our substring by the last position of that duplciated character.
 
-By doing so, the time complexity would be linear, but also will require O(n) in
-space complexity as well. Further examination will show that since there are
-limited number of characters, the space complexity would actually be constant
-O(1).
+By doing so, the time complexity would be linear; and one may think that this
+would also require O(n) in space complexity as well. Further examination will
+show that since there are limited number of characters, the space complexity
+would actually be constant O(1).
 
 ---
 
@@ -45,4 +45,32 @@ class Solution3:
         return longest
 ```
 
+Python:
+
+```python
+
+# Same idea; but to illurstrate the point that algorithm actually is O(1) space.
+
+class Solution3:
+
+    def longestSubstrWithoutRepeat(self, s):
+
+        seen = set()
+        start, end, longest = 0, 0, 0
+
+        while end < len(s):
+            # curr char is a repeat
+            if s[end] in seen:
+                # update start of our window
+                seen.remove(s[start])
+                start += 1
+            # otherwise, new char
+            else:
+                # safe to extend end of our window
+                seen.add(s[end])
+                end += 1
+                longest = max(longest, end - start)
+
+        return longest
+```
 
